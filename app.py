@@ -3,23 +3,19 @@ from transformers import pipeline
 from html_to_csv import extract_content
 from bs4 import BeautifulSoup
 import pandas as pd
-import requests, os, time
+import requests, os, time, sys
 
 app = Flask(__name__)
 
 model = "siebert/sentiment-roberta-large-english"
-models = {"RoBERTa" : pipeline("sentiment-analysis", model=model)}
-listOfKeys = []
-for key in models:
-    listOfKeys.append(key)
+nlp = pipeline("sentiment-analysis", model=model, tokenizer=model)
 
-def get_prediction(df, model):
-    texts = df[df.columns[1]].to_list()
-
+def get_prediction(texts, model):
     new_df = pd.DataFrame(columns=["Content","Label", "Score"])
 
     for index in range(len(texts)):
         preds = model(texts[index])
+        print(preds)
         pred_sentiment = preds[0]["label"]
         pred_score = preds[0]["score"]
 
@@ -27,7 +23,7 @@ def get_prediction(df, model):
         new_df.at[index, "Label"] = pred_sentiment
         new_df.at[index, "Score"] = pred_score
         # write text
-        new_df.at[index, "Content"] = texts[index]
+        new_df.at[index, "Content"] = "".join((texts[index]))
 
     new_df.to_csv("data/results.csv", index=False)
     results = new_df
@@ -48,7 +44,7 @@ def convert():
         print(url)
         page=requests.get(url) 
     except Exception as e:    
-        error_type, error_obj, error_info = sys.exc_info()      
+        error_type, error_info = sys.exc_info()      
         print ('ERROR FOR LINK:',url)                     
         print (error_type, 'Line:', error_info.tb_lineno)
 
@@ -67,18 +63,20 @@ def convert():
             paragraphs.append(content)
 
     df = pd.DataFrame(paragraphs)
-    df.to_csv("data/news.csv")
+    df.to_csv("data/news.csv", index=False)
     data = pd.read_csv("data/news.csv")
-    df = pd.DataFrame(data)
-    message = "\n".join(df[df.columns[1]].to_list())
-    results = get_prediction(df, models["RoBERTa"])
+    texts = data.values.tolist()
+    message = ""
+    for i in texts:
+        message += "".join(i)
+    results = get_prediction(texts, nlp)
 
-    return render_template('result.html', text = f'{message}', prediction = results)
+    return render_template('result.html', text = message, prediction = results)
 
 
 @app.route('/predict', methods=['GET'])
 def render_predict():
-    return render_template("predict.html", len = len(listOfKeys), listOfKeys = listOfKeys)
+    return render_template("predict.html")
 
 
 @app.route('/predict', methods=['POST'])
@@ -89,13 +87,13 @@ def predict():
     if filename != "":
         file_data.save(os.path.join('data', filename))
     data = pd.read_csv('data/{}'.format(filename))
-    df = pd.DataFrame(data)
-    message = "\n".join(df[df.columns[1]].to_list())
+    texts = data.values.tolist()
+    message = ""
+    for i in texts:
+        message += "".join(i)
+    results = get_prediction(texts, nlp)
 
-    # choice of the model
-    results = get_prediction(df, models[request.form.get("model_choice")])
-    print(f'User selected model : {request.form.get("model_choice")}')
-    return render_template('result.html', text = f'{message}', prediction = results)
+    return render_template('result.html', text = message, prediction = results)
 
 if __name__ == '__main__':
     app.run(debug=True)

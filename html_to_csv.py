@@ -27,7 +27,7 @@ def extract_content(url):
             paragraphs.append(content)
 
     df = pd.DataFrame(paragraphs)
-    df.to_csv("data/news.csv")
+    df.to_csv("data/news.csv", index=False)
 
 
 
