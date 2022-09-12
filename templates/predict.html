@@ -11,12 +11,17 @@
 			<div class="container">
 				<h3>Sentiment Analysis on Newspaper Articles using Hugging Face</h3>
 				<hr>
-				<h5>Convert your CNA article into a CSV file:</h5>
-				<a href="{{url_for('convert')}}">Convert Here</a>
-				
+				<h5>Select a CSV file:</h5>
+				<label for="file">Select a file:</label>
+				<input type="file" id="file" name="file" accept=".csv">
 				<br/>
-				<h5>Perform Sentiment Analysis on CSV file: </h5>
-				<a href="{{url_for('predict')}}">Perform Here</a>
+				<h5>Select Hugging Face model: </h5>
+				<select name="model_choice">
+				{%for i in range(0, len)%}
+			  		<option>{{listOfKeys[i]}}</option>
+				{%endfor%}
+				</select>
+				<button class="submit" type="submit">Submit</button>
     </form>
 	</body>
 </html>

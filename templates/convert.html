@@ -11,12 +11,9 @@
 			<div class="container">
 				<h3>Sentiment Analysis on Newspaper Articles using Hugging Face</h3>
 				<hr>
-				<h5>Convert your CNA article into a CSV file:</h5>
-				<a href="{{url_for('convert')}}">Convert Here</a>
-				
-				<br/>
-				<h5>Perform Sentiment Analysis on CSV file: </h5>
-				<a href="{{url_for('predict')}}">Perform Here</a>
+				<h5>Enter CNA article URL:</h5>
+				<input type="text" name="url">
+				<button class="submit" type="submit">Submit</button>
     </form>
 	</body>
 </html>

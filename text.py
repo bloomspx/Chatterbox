@@ -1,12 +1,19 @@
-import pandas as pd
+from tkinter import *
+from tkinter import filedialog as fd
+from tkinter.messagebox import showinfo
+from turtle import title
 
-def predict():
-    file_name = "news"
-    data = pd.read_csv('data/{}.csv'.format(file_name))
-    df = pd.DataFrame(data)
-    message = "\n".join(df[df.columns[1]].to_list())
+def openFile():
+    filename = fd.askopenfilename(title="Open File", 
+                                filetypes=(('csv files','*.csv'), ('All files', '*.*')),
+                                initialdir='/')
+    print(filename)
+    
 
-    print(message)
+root = Tk()
+root.title("Open File Dialog")
+root.geometry("300x100")
+openButton = Button(root, text="Browse", command=openFile)
+openButton.grid(column=0, row=1, sticky='w', padx=10, pady=10)
 
-
-predict()
+root.mainloop()
