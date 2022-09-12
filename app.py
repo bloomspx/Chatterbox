@@ -52,7 +52,7 @@ def convert():
         print ('ERROR FOR LINK:',url)                     
         print (error_type, 'Line:', error_info.tb_lineno)
 
-    time.sleep(5)
+    time.sleep(4)
     soup = BeautifulSoup(page.text, "html.parser")
 
     ## extract article content
@@ -67,8 +67,13 @@ def convert():
             paragraphs.append(content)
 
     df = pd.DataFrame(paragraphs)
-    df.to_csv("news.csv")
-    return redirect(('/'))
+    df.to_csv("data/news.csv")
+    data = pd.read_csv("data/news.csv")
+    df = pd.DataFrame(data)
+    message = "\n".join(df[df.columns[1]].to_list())
+    results = get_prediction(df, models["RoBERTa"])
+
+    return render_template('result.html', text = f'{message}', prediction = results)
 
 
 @app.route('/predict', methods=['GET'])
