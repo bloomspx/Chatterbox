@@ -2,15 +2,17 @@ from flask import Flask, render_template, request, redirect
 from transformers import pipeline
 from html_to_csv import extract_content
 from bs4 import BeautifulSoup
+from functions import generate_summary, form_text_chunks, extract_text
 import pandas as pd
 import requests, os, time, sys
 
 app = Flask(__name__)
 
-model = "siebert/sentiment-roberta-large-english"
-nlp = pipeline("sentiment-analysis", model=model, tokenizer=model)
+## hugging face models used
+nlp = pipeline("sentiment-analysis", model="siebert/sentiment-roberta-large-english", tokenizer="siebert/sentiment-roberta-large-english")
+summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
 
-def get_prediction(texts, model):
+def generate_sa_predict(texts, model):
     new_df = pd.DataFrame(columns=["Content","Label", "Score"])
 
     for index in range(len(texts)):
@@ -39,6 +41,7 @@ def render_convert():
 
 @app.route('/convert', methods=['POST'])
 def convert():
+    ## extract article content from url
     try:
         url = request.form.get('url')
         print(url)
@@ -51,7 +54,6 @@ def convert():
     time.sleep(4)
     soup = BeautifulSoup(page.text, "html.parser")
 
-    ## extract article content
     textContent = soup.find_all('div', attrs={'class':'text'})
     print(textContent)
     paragraphs = []
@@ -81,19 +83,21 @@ def render_predict():
 
 @app.route('/predict', methods=['POST'])
 def predict():
+    ## save file locally
     file_data = request.files['file']
     filename = file_data.filename
-    ## save file locally
     if filename != "":
         file_data.save(os.path.join('data', filename))
-    data = pd.read_csv('data/{}'.format(filename))
-    texts = data.values.tolist()
-    message = ""
-    for i in texts:
-        message += "".join(i)
-    results = get_prediction(texts, nlp)
+    message = extract_text(filename)
+    # chunks = form_text_chunks(message, 1024)
 
-    return render_template('result.html', text = message, prediction = results)
+    # obtain sa prediction results
+    # sa_results = generate_sa_predict(texts, nlp)
+
+    # obtain summary results
+    summarized_text = generate_summary(summarizer, filename)
+
+    return render_template('result.html', summary = summarized_text, text=message)
 
 if __name__ == '__main__':
     app.run(debug=True)
