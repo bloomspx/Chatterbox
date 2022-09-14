@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<link rel="stylesheet" href="../static/styles.css">
+		<title>Sentiment Analysis on Newspaper Articles using Hugging Face</title>
+	</head>
+	<body>
+		<form method=post enctype=multipart/form-data>
+			<div class="container">
+				<h3>Sentiment Analysis on Newspaper Articles using Hugging Face</h3>
+				<hr>
+				<h5>Convert your CNA article into a CSV file & perform sentiment analysis:</h5>
+				<a href="{{url_for('convert')}}">Convert Here</a>
+				
+				<br/>
+				<h5>Perform Sentiment Analysis on CSV file: </h5>
+				<a href="{{url_for('predict')}}">Perform Here</a>
+    </form>
+	</body>
+</html>

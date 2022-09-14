@@ -18,6 +18,7 @@ def extract_text(filename):
     elif (filename[-4:] == ".txt"):     # txt format
         with open("data/{}".format(filename), 'r',  encoding="utf8") as f:
             message = "".join(f.readlines())
+    message = message.replace('\n', ' ')
     return message
 
 # split text > max_length into a list of sentences
@@ -86,3 +87,5 @@ def generate_sentiments(message, model):
     new_df.to_json("data/results.json")
     results = new_df
     return results
+
+

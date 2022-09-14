@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<link rel="stylesheet" href="../static/styles.css">
+		<title>Sentiment Analysis on Newspaper Articles using Hugging Face</title>
+	</head>
+	<body>
+		<form method=post enctype=multipart/form-data>
+			<div class="container">
+				<h3>Sentiment Analysis on Newspaper Articles using Hugging Face</h3>
+				<hr>
+				<h4>Your text:</h4>
+				<p id="text">{{ text }}</p>
+				<h4>Summary:</h4>
+				<p id="summary">{{ summary }}</p>
+				<h4>Sentiment prediction result:</h4>
+				<p id="demo">{{ prediction.to_html(classes="table") | safe }}</p>
+			</div>
+    </form>
+	</body>
+</html>

@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect
 from transformers import pipeline
 from bs4 import BeautifulSoup
-from backend.functions import generate_summary, form_text_chunks, extract_text, generate_sentiments
+from backend.utils import generate_summary, extract_text, generate_sentiments
 import pandas as pd
 import requests, os, time, sys
 
@@ -11,24 +11,6 @@ app = Flask(__name__)
 nlp = pipeline("sentiment-analysis", model="siebert/sentiment-roberta-large-english", tokenizer="siebert/sentiment-roberta-large-english")
 summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
 
-def generate_sa_predict(texts, model):
-    new_df = pd.DataFrame(columns=["Content","Label", "Score"])
-
-    for index in range(len(texts)):
-        preds = model(texts[index])
-        print(preds)
-        pred_sentiment = preds[0]["label"]
-        pred_score = preds[0]["score"]
-
-        # write data into df
-        new_df.at[index, "Label"] = pred_sentiment
-        new_df.at[index, "Score"] = pred_score
-        # write text
-        new_df.at[index, "Content"] = "".join((texts[index]))
-
-    new_df.to_csv("data/results.csv", index=False)
-    results = new_df
-    return results
 
 @app.route('/', methods=['GET'])
 def home():
