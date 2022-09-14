@@ -1,4 +1,8 @@
-import csv
+import sys,time,csv
+from bs4 import BeautifulSoup
+import requests
+import pandas as pd
+
 
 # extracts content from csv/txt in /data to an entire paragraph
 def extract_text(filename):
@@ -46,16 +50,39 @@ def summarize(summarizer, chunks):
     # print(result)
     return result
 
-def generate_summary(summarizer, filename):
-    message = extract_text(filename)
+def generate_summary(summarizer, message):
     sentences = message.split('.')
     chunks = form_text_chunks(sentences, 1024)
     # print("chunks:", chunks)
     result = summarize(summarizer, chunks)
     # print(result + "\n")
-    while (len(result) > 1200):
-        sentences = message.split('.')
+    if (len(result) > 1200):
+        sentences = result.split('.')
         chunks = form_text_chunks(sentences, 1024)
         result = summarize(summarizer, chunks)
     print(result)
     return result
+
+
+def generate_sentiments(message, model):
+    texts = message.split('.')
+    # print(texts, "\n\n")
+    chunks = form_text_chunks(texts, 512)
+    new_df = pd.DataFrame(columns=["Content","Sentiment", "Score"])
+
+    for index in range(len(chunks)):
+        preds = model(chunks[index])
+        # print(preds)
+        pred_sentiment = preds[0]["label"]
+        pred_score = preds[0]["score"]
+
+        # write predicted data into df
+        new_df.at[index, "Sentiment"] = pred_sentiment
+        new_df.at[index, "Score"] = pred_score
+        # write text
+        new_df.at[index, "Content"] = "".join((chunks[index]))
+
+    # new_df.to_csv("data/results.csv", index=False)
+    new_df.to_json("data/results.json")
+    results = new_df
+    return results
