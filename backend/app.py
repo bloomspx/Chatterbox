@@ -66,13 +66,9 @@ def predict():
     filename = file_data.filename
     if filename != "":
         file_data.save(os.path.join('data', filename))
-    message = extract_text(filename)    # extract text & combine into 1 para
+    
 
-    # obtain sa prediction results
-    sa_results = generate_sentiments(message, nlp)
-
-    # obtain summary results
-    summarized_text = generate_summary(summarizer, message)
+    
 
     return render_template('result.html', summary = summarized_text, text=message, prediction=sa_results)
 
