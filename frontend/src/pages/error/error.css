@@ -7,7 +7,7 @@
     height: 100vh;
     position: fixed;
     z-index: 0;
-    background-color: rgba(0, 0, 0, 0.834);
+    background: linear-gradient(20deg, #04325F, #010F1D); 
 }
 
 .wordstyle {

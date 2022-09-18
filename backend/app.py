@@ -1,11 +1,14 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, jsonify
 from transformers import pipeline
 from bs4 import BeautifulSoup
-from backend.utils import generate_summary, extract_text, generate_sentiments
+from nlp import run_chatterbox, generate_sentiments, generate_summary, generate_word_cloud
+from utils import extract_text
+from flask_cors import CORS
 import pandas as pd
 import requests, os, time, sys
 
 app = Flask(__name__)
+cors = CORS(app)
 
 ## hugging face models used
 nlp = pipeline("sentiment-analysis", model="siebert/sentiment-roberta-large-english", tokenizer="siebert/sentiment-roberta-large-english")
@@ -14,63 +17,92 @@ summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
 
 @app.route('/', methods=['GET'])
 def home():
-    return render_template("home.html")
+    return "Flask server is currently running on localhost:5000."
 
-@app.route('/convert', methods=['GET'])
-def render_convert():
-    return render_template("convert.html")
-
-@app.route('/convert', methods=['POST'])
-def convert():
-    # extract article content from url
-    try:
-        url = request.form.get('url')
-        print(url)
-        page=requests.get(url) 
-    except Exception as e:    
-        error_type, error_info = sys.exc_info()      
-        print ('ERROR FOR LINK:',url)                     
-        print (error_type, 'Line:', error_info.tb_lineno)
-
-    time.sleep(4)
-    soup = BeautifulSoup(page.text, "html.parser")
-
-    textContent = soup.find_all('div', attrs={'class':'text'})
-    paragraphs = []
-
-    for i in textContent:
-        para = i.find_all('p')
-        for j in para:
-            content = j.getText().strip()
-            paragraphs.append(content)
-
-    df = pd.DataFrame(paragraphs)
-    df.to_csv("data/news.csv", index=False)
-    message = extract_text("news.csv")
-    # obtain sa + summary 
-    sa_results = generate_sentiments(message, nlp)
-    summarized_text = generate_summary(summarizer, message)
-
-    return render_template('result.html', summary = summarized_text, text=message, prediction=sa_results)
+@app.route('/save-file', methods=['POST'])
+def saveFile():
+    request_file = request.get_json()
+    print(request_file)
+    filename = request_file['name']
+    filedata = request_file['text']
 
 
-@app.route('/predict', methods=['GET'])
-def render_predict():
-    return render_template("predict.html")
-
-
-@app.route('/predict', methods=['POST'])
-def predict():
-    # save file locally
-    file_data = request.files['file']
-    filename = file_data.filename
     if filename != "":
-        file_data.save(os.path.join('data', filename))
-    
+        text_file = open("data/temp.txt", "w", encoding='utf-8')
+        n = text_file.write(filedata)
+        text_file.close()
+    try:
+        text = extract_text(filename)
+        num_words = len(text.split(' '))
+        num_sent = len(text.split('.'))
+        requestJson = {"text": text}
 
-    
+        print("Total wordcount:", num_words)
+        print("Total sentences:", num_sent)
+        return jsonify({'result': requestJson}), 200
+    except Exception as err:
+        return jsonify({'error': err}), 500
 
-    return render_template('result.html', summary = summarized_text, text=message, prediction=sa_results)
+@app.route('/summary', methods=['GET'])
+def summarize():
+    try:
+        with open("data/temp.txt", "r", encoding='utf-8') as f:
+            lines = f.readlines()
+            resultJson = {'text':"".join(lines)}
+            result = generate_sentiments(resultJson)
+            return jsonify({'summary': result}), 200
+    except Exception as err:
+        return 500
+
+@app.route('/sentiment-analysis', methods=['GET'])
+def sentimentanalysis():
+    try:
+        with open("data/temp.txt", "r", encoding='utf-8') as f:
+            lines = f.readlines()
+            resultJson = {'text':"".join(lines)}
+            result = generate_summary(resultJson)
+            return jsonify({'sa': result}), 200
+    except Exception as err:
+        return 500
+
+@app.route('/wordcloud', methods=['GET'])
+def wordcloud():
+    try:
+        with open("data/temp.txt", "r", encoding='utf-8') as f:
+            lines = f.readlines()
+            resultJson = {'text':"".join(lines)}
+            result = generate_word_cloud(resultJson)
+            return jsonify({'wordcloud': result}), 200
+    except Exception as err:
+        return 500
+
+
+
+
+@app.route('/text-analysis', methods=['POST'])
+def performTA():
+    
+    request_file = request.get_json()
+    print(request_file)
+    filename = request_file['name']
+    filedata = request_file['text']
+
+
+    if filename != "":
+        text_file = open("data/temp.txt", "w", encoding='utf-8')
+        n = text_file.write(filedata)
+        text_file.close()
+    try:
+        result = run_chatterbox("temp.txt")
+        return jsonify({'result': result}), 200
+    except Exception as err:
+        return jsonify({'error': err}), 500
+
+@app.route('/text-to-speech', methods=['GET', 'POST'])
+def performTTS():
+    ### TODO
+    return
+    
 
 if __name__ == '__main__':
     app.run(debug=True)

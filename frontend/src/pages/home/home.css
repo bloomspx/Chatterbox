@@ -1,0 +1,122 @@
+.home-container {
+    display: flex;
+    flex-direction: row;
+    background: linear-gradient(to bottom right, #04325F, #010F1D); 
+    color: white;
+    height:100vh; 
+}
+
+.header-body {
+    flex:1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1rem;
+    margin: 5rem 3rem;
+}
+
+ 
+.header-container h1 {
+    font-weight: 800;
+    font-size: 62px;
+    letter-spacing: -0.04em;
+}
+
+.header-image {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5rem 3rem;
+}
+
+.header-image img {
+    width: 100%;
+    height: auto;
+}
+
+.header-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 1.5rem;
+    gap: 1.5rem;
+    padding: 1rem;
+
+}
+
+.header-content button {
+    width: 100%;
+    text-align: left;
+    min-height: 50px;
+    font-weight: 400;
+    font-size: 20px;
+    padding: 2rem;
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, 
+        rgba(0, 0, 0, 0.09) 0px 4px 2px, 
+        rgba(0, 0, 0, 0.09) 0px 8px 4px, 
+        rgba(0, 0, 0, 0.09) 0px 16px 8px,
+        rgba(0, 0, 0, 0.09) 0px 32px 16px;
+    }
+    
+.header-content button:hover {
+    border: 1px solid white;
+    box-shadow: 0px 0px 26px 8px hsla(0, 0%, 50%, 0.664);
+    background-color:rgba(255, 255, 255, 0.8);
+    color: black;
+    font-weight: 600;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+}
+      
+
+
+
+@media screen and (max-width: 1050px) {
+    .home-container {
+        flex-direction: column;
+    }
+
+    .header-body {
+        margin: 0 0 3rem;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .header-body h1 {
+        font-size: 48px;
+        line-height: 60px;
+    }
+
+    .convert-container p {
+        font-size: 16px;
+        line-height: 24px;
+    }
+    
+    .convert-container button {
+        font-size: 16px;
+        line-height: 24px;
+    }
+}
+
+@media screen and (max-width: 490px) {
+    .header-body h1 {
+        font-size: 36px;
+        line-height: 48px;
+    }
+
+    .convert-container p {
+        font-size: 14px;
+        line-height: 24px;
+    }
+
+    .convert-container button {
+        font-size: 12px;
+        line-height: 16px;
+    }
+}
