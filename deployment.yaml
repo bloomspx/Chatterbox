@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-deployment
+  labels:
+    app: app-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-server
+  template:
+    metadata:
+      labels:
+        app: app-server
+    spec:
+      containers:
+      - name: app
+        image: tegexplore/pda-2022:backend-98a9993
+        ports:
+        - containerPort: 5000
+      imagePullSecrets:
+      - name: dockercred
