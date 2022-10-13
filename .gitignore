@@ -1,3 +1,6 @@
-/venv
-/test.py
-.venv
+backend/.venv
+backend/__pycache__
+backend/output
+pytorch_model.bin
+__pycache__/
+*.pyc

@@ -1,0 +1,17 @@
+[Desktop Entry]
+
+Name=chatterbox-quickstart
+
+Name[en_US]=chatterbox-quickstart
+
+Comment=
+
+Exec=chatterbox.sh
+
+Icon=terminal
+
+Terminal=false
+
+Type=Application
+
+StartupNotify=true

@@ -7,11 +7,10 @@
     height: 100vh;
     position: fixed;
     z-index: 0;
-    background: linear-gradient(20deg, #04325F, #010F1D); 
 }
 
 .wordstyle {
-    color: white;
+    color: #363949;
     font-size: 30px;
     font-weight: bold;
   }

@@ -1,9 +1,22 @@
+html, body {
+    background-color: #f6f6f9;
+    min-height: 100%;
+    width: 100%;
+    color: #363949;
+    font-family: 'Material Icons';
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+  }
+
 .home-container {
     display: flex;
     flex-direction: row;
-    background: linear-gradient(to bottom right, #04325F, #010F1D); 
-    color: white;
-    height:100vh; 
+    min-height:100vh; 
+    height: 100%;
+    width: 100%;
 }
 
 .header-body {
@@ -12,14 +25,13 @@
     flex-direction: column;
     justify-content: center;
     padding: 1rem;
-    margin: 5rem 3rem;
+    margin: 3rem;
 }
 
  
 .header-container h1 {
-    font-weight: 800;
-    font-size: 62px;
-    letter-spacing: -0.04em;
+    font-weight: 700;
+    font-size: 58px;
 }
 
 .header-image {
@@ -42,19 +54,23 @@
     margin-top: 1.5rem;
     gap: 1.5rem;
     padding: 1rem;
-
 }
+    .title {
+        text-decoration: underline;
+    }
+
 
 .header-content button {
     width: 100%;
     text-align: left;
     min-height: 50px;
-    font-weight: 400;
-    font-size: 20px;
-    padding: 2rem;
-    border-radius: 5px;
-    background-color: rgba(0, 0, 0, 0.7);
-    color: #fff;
+    font-weight: 500;
+    font-size: 18px;
+    padding: 1.5rem;
+    border-radius: 3px;
+    background-color: ghostwhite;
+    border: 1.5px #363949 solid;
+    color: #363949;
     cursor: pointer;
     box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, 
         rgba(0, 0, 0, 0.09) 0px 4px 2px, 
@@ -64,14 +80,13 @@
     }
     
 .header-content button:hover {
-    border: 1px solid white;
-    box-shadow: 0px 0px 26px 8px hsla(0, 0%, 50%, 0.664);
-    background-color:rgba(255, 255, 255, 0.8);
-    color: black;
-    font-weight: 600;
-    -o-transition: all .4s ease-in-out;
-    -webkit-transition: all .4s ease-in-out;
-    transition: all .4s ease-in-out;
+    background-color:#363949;
+    color: white;
+    -o-transition: all .3s ease-in-out;
+    -webkit-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+    box-shadow: rgba(186, 190, 194, 0.3) 0px 1px 2px 0px, 
+                rgba(217, 221, 224, 0.15) 0px 2px 6px 2px;
 }
       
 
