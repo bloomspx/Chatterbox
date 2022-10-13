@@ -1,6 +1,5 @@
-backend/.venv
-backend/__pycache__
-backend/output
+.venv
+/output
 pytorch_model.bin
 __pycache__/
 *.pyc
