@@ -11,7 +11,7 @@ cors = CORS(app)
 
 @app.route('/', methods=['GET'])
 def home():
-    return "Flask server is currently running on localhost:5000."
+    return "Flask server is currently running on localhost."
 
 
 ### ------ TEXT ANALYSIS METHODS ------ ###
@@ -65,18 +65,6 @@ def fetchResults():
     except Exception as err:
         return jsonify({'error': err}), 500
 
-# @app.route('/save-results', methods=['POST'])
-# def saveResults():    
-#     try:
-#         dir_path = os.path.abspath('')
-#         request_file = request.get_json()
-#         with open(dir_path +  '/output/results.json', 'w', encoding='utf-8') as f:
-#             json.dump(request_file, f, ensure_ascii=False, indent=4)    
-#         return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
-
-    except Exception as err:
-        return jsonify({'error': err}), 500
-
 ### ------ SPEECH TO TEXT METHODS ------ ###    
 
 @app.route('/speech-to-text', methods=['GET', 'POST'])
@@ -116,4 +104,4 @@ def performTTS():
     
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host="0.0.0.0", port=5000)

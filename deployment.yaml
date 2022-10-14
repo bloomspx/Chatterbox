@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: app-deployment
+  name: backend-deployment
   labels:
-    app: app-server
+    app: backend-server
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: app-server
+      app: backend-server
   template:
     metadata:
       labels:
-        app: app-server
+        app: backend-server
     spec:
       containers:
       - name: app
