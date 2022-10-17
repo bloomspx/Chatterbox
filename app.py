@@ -1,10 +1,9 @@
 from flask import Flask, render_template, request, redirect, jsonify, send_file
-from nlp import run_chatterbox, generate_sentiments, generate_summary, generate_topics, generate_word_cloud, extract_text, extract_results
+from nlp import generate_sentiments, generate_summary, generate_topics, generate_word_cloud, extract_text, extract_results
 from main_vosk import run_vosk
 from flask_cors import CORS
 from nltk.tokenize import sent_tokenize, word_tokenize
 import requests, os, time, sys, base64, nltk, json
-
 
 app = Flask(__name__)
 cors = CORS(app)
