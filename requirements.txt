@@ -1,4 +1,4 @@
-bertopic==0.12.0
+# bertopic==0.12.0
 blis==0.7.8
 catalogue==2.0.8
 certifi==2022.9.24
@@ -81,7 +81,7 @@ tqdm==4.64.1
 transformers==4.21.3
 typer==0.4.2
 typing_extensions==4.3.0
-umap-learn==0.5.3
+# umap-learn==0.5.3
 urllib3==1.26.12
 vosk==0.3.44
 Wand==0.6.10

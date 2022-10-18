@@ -1,5 +1,5 @@
 from sentence_transformers import SentenceTransformer
-from bertopic import BERTopic
+# from bertopic import BERTopic
 from sklearn.feature_extraction.text import CountVectorizer
 from transformers import AutoTokenizer, AutoModelForSequenceClassification, AutoModelForSeq2SeqLM
 from wordcloud import WordCloud
@@ -119,7 +119,7 @@ def generate_sentiments(message):
 
 def generate_topics(document):
 
-    failBert = False
+    failBert = True
     global topics_words
 
     modelPath = dir_path + '/models/all-MiniLM-L6-v2' 
@@ -127,23 +127,23 @@ def generate_topics(document):
     vectorizer_model = CountVectorizer(stop_words="english")
 
     # OPTIMALLY RUN BERTOPIC
-    if (failBert == False):
-        try:
-            data = sent_tokenize(document)
-            topic_model = BERTopic(calculate_probabilities=True,
-                                diversity=0.2,
-                                embedding_model=sentence_model,
-                                vectorizer_model=vectorizer_model,
-                                verbose=True)
+    # if (failBert == False):
+    #     try:
+    #         data = sent_tokenize(document)
+    #         topic_model = BERTopic(calculate_probabilities=True,
+    #                             diversity=0.2,
+    #                             embedding_model=sentence_model,
+    #                             vectorizer_model=vectorizer_model,
+    #                             verbose=True)
 
-            topics, probabilities = topic_model.fit_transform(data)
-            topics_words = topic_model.get_topic(0)
-            print("BerTopic:")
-            if (topics_words == False):
-                failBert = True
-        except Exception as e:
-            failBert = True
-            print(e) 
+    #         topics, probabilities = topic_model.fit_transform(data)
+    #         topics_words = topic_model.get_topic(0)
+    #         print("BerTopic:")
+    #         if (topics_words == False):
+    #             failBert = True
+    #     except Exception as e:
+    #         failBert = True
+    #         print(e) 
         
     if (failBert):
         # KEYBERT ALTERNATIVE FOR SHORTER DOCUMENTS
