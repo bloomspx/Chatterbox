@@ -10,6 +10,6 @@ RUN pip install --upgrade pip
 
 RUN pip install bertopic
 
-RUN pip install -r requirements.txt
+RUN pip install --user -r requirements.txt
 
-CMD python3 app.py
+CMD python3 app.py --user
