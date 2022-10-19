@@ -1,16 +1,19 @@
 FROM python:3.9
 
+ENV APP_HOME /app
+
+WORKDIR $APP_HOME
+
+COPY requirements.txt ./
+
 RUN pip install --upgrade pip
 
-RUN adduser -D worker
-USER worker
-WORKDIR /home/worker
+RUN pip install umap-learn==0.5.1
 
-COPY --chown=worker:worker requirements.txt requirements.txt
-RUN pip install --user -r requirements.txt
+RUN pip install bertopic
 
-ENV PATH="/home/worker/.local/bin:${PATH}"
+RUN pip install -r requirements.txt
 
-COPY --chown=worker:worker . .
+COPY . .
 
 CMD python3 app.py
