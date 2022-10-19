@@ -8,6 +8,8 @@ COPY . ./
 
 RUN pip install --upgrade pip
 
+RUN pip install umap-learn==0.5.1
+
 RUN pip install bertopic
 
 RUN pip install -r requirements.txt
