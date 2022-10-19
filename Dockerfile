@@ -2,18 +2,21 @@ FROM python:3.9
 
 ENV APP_HOME /app
 
+RUN pip install -U \
+    pip \
+    setuptools \
+    wheel
+
 WORKDIR $APP_HOME
 
+RUN useradd -m -r user && \
+    chown user /app
+
 COPY requirements.txt ./
-
-RUN pip install --upgrade pip
-
-RUN pip install umap-learn==0.5.1
-
-RUN pip install bertopic
-
 RUN pip install -r requirements.txt
 
 COPY . .
+
+USER user
 
 CMD python3 app.py
