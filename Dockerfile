@@ -7,6 +7,6 @@ RUN npm install && npm cache clean --force
 
 COPY . .
 
-RUN chown -R 1000140000:0 /app/.npm
+RUN chown -R 1000140000:0 /root/app/.npm
 
 CMD ["npm", "start"]
