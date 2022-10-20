@@ -5,7 +5,7 @@ ENV APP_HOME /app
 WORKDIR $APP_HOME
 
 COPY package.json .
-RUN npm install && npm clear cache --force
+RUN npm install && npm cache clean --force 
 
 COPY . .
 
