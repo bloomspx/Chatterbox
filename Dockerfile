@@ -16,4 +16,4 @@ RUN npm ci && npm cache clean --force
 
 COPY . .
 
-CMD ["node", "./src/index.js"]
+CMD ["npm", "start"]
