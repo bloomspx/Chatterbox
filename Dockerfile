@@ -8,8 +8,6 @@ RUN npm install
 
 COPY . .
 
-RUN npm cache clean --force 
-
-RUN chown -R 1000140000:0 "./npm"
+RUN npm install --cache=".npmcache"
 
 CMD ["npm", "start"]
