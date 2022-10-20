@@ -1,11 +1,17 @@
-FROM node:alpine
+FROM node:latest
 
-WORKDIR '/app'
+ENV APP_HOME /app
+
+WORKDIR $APP_HOME
+
+RUN useradd -m -r user && \
+    chown user /app
 
 COPY package.json .
 RUN npm install
-RUN chown -R node.node /app
 
 COPY . .
 
-CMD ["npm", "run", "start"]
+USER user
+
+CMD ["npm", "start"]
