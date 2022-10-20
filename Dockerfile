@@ -1,12 +1,12 @@
-FROM node:latest
+FROM node:alpine
 
 WORKDIR /app
 
-ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
+ENV NODE_ENV production
 
-COPY package.json package-lock.json * ./
+COPY package.json package-lock.json ./
 
-RUN npm install && npm cache clean --force
+RUN npm ci --only=production
 
 COPY . .
 
