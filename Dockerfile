@@ -2,16 +2,14 @@ FROM node:latest
 
 WORKDIR /app
 
-RUN chown node:node ./
-USER node
-
-RUN mkdir /root/.npm
-RUN chown node /root/.npm .
+ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
 
 COPY package.json package-lock.json * ./
 
-RUN npm ci && npm cache clean --force
+RUN npm install && npm cache clean --force
 
 COPY . .
+
+USER node
 
 CMD ["npm", "start"]
