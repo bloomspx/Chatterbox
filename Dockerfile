@@ -9,8 +9,8 @@ RUN useradd -m -r user && \
 
 COPY package.json .
 RUN npm install
-RUN chown -R 1000140000:0 "/root"
-RUN chown -R 1000140000:0 "/root/.npm"
+RUN chown user "/root"
+RUN chown user "/root/.npm"
 
 COPY . .
 
