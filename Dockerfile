@@ -5,10 +5,8 @@ WORKDIR /app
 RUN chown node:node ./
 USER node
 
-# Defaults to production, docker-compose overrides this to development on build and run.
-ARG NODE_ENV=production
-ENV NODE_ENV $NODE_ENV
-
+RUN mkdir /root/.npm
+RUN chown node /root/.npm .
 
 COPY package.json package-lock.json * ./
 
