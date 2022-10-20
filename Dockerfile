@@ -2,12 +2,7 @@ FROM node:latest
 
 ENV APP_HOME /app
 
-ENV NPM_CONFIG_PREFIX=/tmp/.npm
-
 WORKDIR $APP_HOME
-
-RUN useradd -m -r user && \
-    chown user /app
 
 COPY package.json .
 RUN npm install
@@ -15,5 +10,7 @@ RUN npm install
 COPY . .
 
 USER user
+
+RUN sudo chown -R 1000140000:0 "/.npm"
 
 CMD ["npm", "start"]
