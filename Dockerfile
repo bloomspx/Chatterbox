@@ -2,12 +2,15 @@ FROM node:latest
 
 WORKDIR /app
 
-COPY package.json ./
+RUN chown node:node ./
+USER node
 
-RUN npm install
+COPY package.json package-lock.json * ./
+
+RUN npm install && npm cache clean --force
 
 COPY . .
 
 RUN npm install --cache=".npmcache"
 
-CMD ["npm", "start"]
+CMD ["node", "./src/index.js"]
