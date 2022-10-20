@@ -8,7 +8,7 @@ RUN useradd -m -r user && \
     chown user /app
 
 COPY package.json .
-RUN npm ci
+RUN npm install
 RUN chown -R 1000140000:0 "/root"
 RUN chown -R 1000140000:0 "/root/.npm"
 
