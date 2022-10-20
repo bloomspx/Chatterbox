@@ -1,15 +1,14 @@
 FROM node:alpine
 
-WORKDIR /app
+WORKDIR /home/node/app
+RUN chown -R node:node /home/node/app
 
-ENV NODE_ENV production
+COPY --chown=node:node package.json .
 
-COPY package.json package-lock.json ./
+RUN npm install
 
-RUN npm ci --only=production
-
-COPY . .
+COPY --chown=node:node . .
 
 USER node
 
-CMD ["npm", "start"]
+CMD npm run start
