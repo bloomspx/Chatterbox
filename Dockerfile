@@ -2,6 +2,8 @@ FROM node:latest
 
 ENV APP_HOME /app
 
+ENV NPM_CACHE_LOCATION=/tmp/npm
+
 WORKDIR $APP_HOME
 
 RUN useradd -m -r user && \
