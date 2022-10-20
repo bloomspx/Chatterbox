@@ -9,6 +9,6 @@ RUN npm install
 
 COPY . .
 
-RUN sudo chown -R 1000140000:0 "/.npm"
+RUN chown -R 1000140000:0 "/.npm"
 
 CMD ["npm", "start"]
