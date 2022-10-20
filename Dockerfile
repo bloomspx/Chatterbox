@@ -16,6 +16,4 @@ RUN npm ci && npm cache clean --force
 
 COPY . .
 
-RUN npm install --cache=".npmcache"
-
 CMD ["node", "./src/index.js"]
