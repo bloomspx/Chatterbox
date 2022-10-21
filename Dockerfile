@@ -8,7 +8,8 @@ RUN npm install -g npm@latest
 
 COPY ["package.json", "package-lock.json*", "./"]
 
-RUN npm install
+RUN npm install --unsafe-perm --allow-root --ignore-scripts -d
+
 
 COPY . .
 
