@@ -8,9 +8,11 @@ COPY ["package.json", "package-lock.json*", "./"]
 
 RUN npm install
 
-RUN mkdir -p $WORKDIR/npm
+USER node
 
-RUN npm config set prefix WORKDIR/npm
+RUN mkdir /app/.npm-global
+RUN npm config set prefix "/app/.npm-global"
+ENV PATH="/app/.npm-global/bin:${PATH}"
 
 COPY . .
 
