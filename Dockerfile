@@ -4,11 +4,11 @@ ENV NODE_ENV=production
 
 WORKDIR /app
 
-RUN npm install -g npm@8.14.0
+RUN npm install -g npm@latest
 
 COPY ["package.json", "package-lock.json*", "./"]
 
-RUN npm install --production
+RUN npm install
 
 COPY . .
 
