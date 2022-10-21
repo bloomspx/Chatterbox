@@ -1,4 +1,4 @@
-FROM node:alpine
+FROM node:16-alpine
 
 # ENV NODE_ENV=production
 
@@ -8,9 +8,9 @@ COPY ["package.json", "package-lock.json*", "./"]
 
 RUN npm install
 
-COPY . ./
+COPY . .
 
-RUN chown -R 1000140000:0 .npm
+RUN chown -R 1000140000:0 /.npm
 
 # RUN mkdir /app/.npm-global
 # RUN npm config set prefix "/app/.npm-global"
