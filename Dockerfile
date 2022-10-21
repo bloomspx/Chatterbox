@@ -1,4 +1,4 @@
-FROM node:16-alpine
+FROM node:12.18.1
 
 # ENV NODE_ENV=production
 
@@ -10,7 +10,7 @@ RUN npm install
 
 COPY . .
 
-RUN chown -R 1000140000:0 /.npm
+# RUN chown -R 1000140000:0 /.npm
 
 # RUN mkdir /app/.npm-global
 # RUN npm config set prefix "/app/.npm-global"
