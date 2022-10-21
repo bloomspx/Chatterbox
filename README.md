@@ -1,83 +1,70 @@
-<h1 align="center" style="border-bottom: none">
-    <b>ChatterBox Documentation</b>
-</h1>
+# Getting Started with Create React App
 
-# Setup
-ChatterBox runs locally as a web application <br/>
-Tested on Windows and Linux (Ubuntu 20.04 LTS)
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-### For Windows Setup
-Download ffmpeg using : https://www.ffmpeg.org/download.html <br/><br/>
-Ensure following softwares are download 
-- Vscode
-- Github Desktop
-- Node.js
-- Python >3.8
+## Available Scripts
 
-<br/>
+In the project directory, you can run:
 
-### For Linux Setup
+### `npm start`
 
-```
-// install github desktop https://gist.github.com/berkorbay/6feda478a00b0432d13f1fc0a50467f1
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-sudo apt install git
-sudo apt install python
-sudo apt install ffmpeg
-sudo snap install node --classic
-```
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
 
-<br/>
+### `npm test`
 
-# Getting Started
-### 1. Download HuggingFace models locally, and save it in backend/models
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-Download the `pytorch_model.bin` for each model and move to backend/models
+### `npm run build`
 
-backend/models/roberta-SA <br/>
-https://huggingface.co/cardiffnlp/twitter-roberta-base-sentiment/tree/main
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-backend/models/bart-summary <br/>
-https://huggingface.co/facebook/bart-large-cnn/tree/main
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-backend/models/all-MiniLM-L6-v2 <br/>
-https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/tree/main
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-<br/>
+### `npm run eject`
 
-### 2. Create virtual environment, install Python dependencies for Flask backend & run
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-```
-cd backend       
-python -m venv .venv
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-// ensure (.venv) is showing in ur command prompt, else run this command in the parent directory
-// (For Windows)
-.venv\scripts\activate
-// (For Linux)
-source .venv/bin/activate
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-pip install -r requirements.txt 
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-// some modules may need to be individually pip installed, check for missing modules & pip install respective modules
-// pytorch with gpu: https://pytorch.org/get-started/locally/
+## Learn More
 
-// run flask
-python app.py 
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-flask run
-```
+To learn React, check out the [React documentation](https://reactjs.org/).
 
-<br/>
+### Code Splitting
 
-### 3. Install Node modules for React frontend & run
-```
-cd frontend      
-npm install
-npm start
-```
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-<br/>
+### Analyzing the Bundle Size
 
-# (Optional - For Linux) Creating shellscript for ChatterBox Quickstart
-### Follow documentation in 'ubuntu bash launcher' folder
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+
+### Making a Progressive Web App
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+
+### Advanced Configuration
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+
+### Deployment
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+### `npm run build` fails to minify
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
