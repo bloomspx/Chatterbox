@@ -1,18 +1,17 @@
-FROM node:latest
+FROM node:alpine
 
 ENV NODE_ENV=production
 
 WORKDIR /app
 
-RUN npm install -g npm@latest
+ENV PATH /app/node_modules/.bin:$PATH
 
 COPY ["package.json", "package-lock.json*", "./"]
 
-RUN npm install --unsafe-perm --allow-root --ignore-scripts -d
-
+RUN npm install
 
 COPY . .
 
-RUN chown -R 1000140000:0 /.npm
+# RUN chown -R 1000140000:0 /.npm
 
 CMD ["npm", "start"]
