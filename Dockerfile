@@ -1,6 +1,10 @@
-FROM node:latest
+FROM ubuntu:22.04
 
 # ENV NODE_ENV=production
+
+RUN apt-get update && apt-get upgrade -y && \
+    apt-get install -y nodejs \
+    npm    
 
 WORKDIR /app
 
