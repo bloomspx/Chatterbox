@@ -12,6 +12,13 @@ cors = CORS(app)
 def home():
     return "Chatterbox Flask server is currently running."
 
+@app.route('/test-fetch', methods=['GET'])
+def testFetch():
+    try:
+        outJson = {'success': "Test-fetch is working"}
+        return jsonify(outJson), 200
+    except Exception as err:
+        return jsonify({'error': err}), 500
 
 ### ------ TEXT ANALYSIS METHODS ------ ###
 
