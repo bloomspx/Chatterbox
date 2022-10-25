@@ -5,7 +5,7 @@ export default async function callApi(type, values) {
     console.log(values)
 
     if (type === "text-analysis") {
-        data = await fetch(`http://localhost:5000/text-analysis`,{
+        data = await fetch(`http://backend-service:5000/text-analysis`,{
             method:'POST',
             mode: 'cors',
             headers : {'Content-Type':'application/json'},
@@ -17,7 +17,7 @@ export default async function callApi(type, values) {
     }
 
     else if (type === "fetch-results") {
-        data = await fetch(`http://localhost:5000/fetch-results`,{
+        data = await fetch(`http://backend-service:5000/fetch-results`,{
             method:'POST',
             mode: 'cors',
             headers : {'Content-Type':'application/json'},
@@ -29,7 +29,7 @@ export default async function callApi(type, values) {
     }
     
     // else if (type === "save_results") {
-    //     data = await fetch(`http://localhost:5000/save-results`,{
+    //     data = await fetch(`http://backend-service:5000/save-results`,{
     //         method:'POST',
     //         mode: 'cors',
     //         headers : {'Content-Type':'application/json'},

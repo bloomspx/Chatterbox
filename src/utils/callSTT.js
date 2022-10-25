@@ -2,7 +2,7 @@ export default function callSTT(type, object) {
 
     if (type === "speech2text") { 
 
-        let response = fetch(`http://localhost:5000/speech-to-text`,{
+        let response = fetch(`http://backend-service:5000/speech-to-text`,{
             method:'POST',
             mode: 'cors',
             headers : {'Content-Type':'application/json'},
