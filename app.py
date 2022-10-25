@@ -10,7 +10,7 @@ cors = CORS(app)
 
 @app.route('/', methods=['GET'])
 def home():
-    return "Flask server is currently running on localhost."
+    return "Chatterbox Flask server is currently running."
 
 
 ### ------ TEXT ANALYSIS METHODS ------ ###
