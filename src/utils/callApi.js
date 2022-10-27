@@ -6,7 +6,7 @@ export default async function callApi(type, values) {
 
     if (type === "text-analysis") {
         data = await fetch(`http://backend-service-myproject.192.168.42.57.nip.io/text-analysis`,{
-            method:'GET',
+            method:'POST',
             mode: 'cors',
             headers : {
                 "Access-Control-Allow-Headers" : "Content-Type",
@@ -23,7 +23,7 @@ export default async function callApi(type, values) {
 
     else if (type === "fetch-results") {
         data = await fetch(`http://backend-service-myproject.192.168.42.57.nip.io/fetch-results`,{
-            method:'GET',
+            method:'POST',
             mode: 'cors',
             headers : {
                 "Access-Control-Allow-Headers" : "Content-Type",
