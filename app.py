@@ -61,8 +61,8 @@ def performTA():
             # **topicJson,
             # **wordcloudJson
         }
-        with open(dir_path +  '/output/json/results_{}.json'.format(filename), 'w', encoding='utf-8') as f:
-            json.dump(outJson, f, ensure_ascii=False, indent=4)    
+        # with open(dir_path +  '/output/json/results_{}.json'.format(filename), 'w', encoding='utf-8') as f:
+        #     json.dump(outJson, f, ensure_ascii=False, indent=4)    
         
         response = jsonify(outJson)
         response.headers.add('Access-Control-Allow-Origin', '*')
