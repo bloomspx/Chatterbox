@@ -1,12 +1,12 @@
 from flask import Flask, render_template, request, redirect, jsonify, send_file
 from nlp import generate_sentiments, generate_summary, generate_topics, generate_word_cloud, extract_text, extract_results
 from main_vosk import run_vosk
-# from flask_cors import CORS
+from flask_cors import CORS
 from nltk.tokenize import sent_tokenize, word_tokenize
 import requests, os, time, sys, base64, nltk, json
 
 app = Flask(__name__)
-# cors = CORS(app)
+cors = CORS(app)
 
 @app.route('/', methods=['GET'])
 def home():
@@ -22,7 +22,7 @@ def testFetch():
 
 ### ------ TEXT ANALYSIS METHODS ------ ###
 
-@app.route('/text-analysis', methods=['POST'])
+@app.route('/text-analysis', methods=['GET', 'POST'])
 def performTA():
     try:
         dir_path = os.path.abspath('')
@@ -57,7 +57,7 @@ def performTA():
     except Exception as err:
         return jsonify({'error': err}), 500
 
-@app.route('/fetch-results', methods=['POST'])
+@app.route('/fetch-results', methods=['GET', 'POST'])
 def fetchResults():
     try:
         request_file = request.get_json()
