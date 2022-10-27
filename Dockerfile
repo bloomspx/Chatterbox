@@ -21,7 +21,7 @@ COPY requirements.txt ./
 RUN pip install -r requirements.txt
 # RUN pip install --no-cache-dir -r requirements.txt
 
-# RUN python3 -c 'from transformers import AutoTokenizer, AutoModelForSequenceClassification; tokenizer = AutoTokenizer.from_pretrained("cardiffnlp/twitter-roberta-base-sentiment"); model = AutoModelForSequenceClassification.from_pretrained("cardiffnlp/twitter-roberta-base-sentiment"); tokenizer.save_pretrained("./models/roberta-SA"); model.save_pretrained("./models/roberta-SA")'
+RUN python3 -c 'from transformers import AutoTokenizer, AutoModelForSequenceClassification; tokenizer = AutoTokenizer.from_pretrained("cardiffnlp/twitter-roberta-base-sentiment"); model = AutoModelForSequenceClassification.from_pretrained("cardiffnlp/twitter-roberta-base-sentiment"); tokenizer.save_pretrained("./models/roberta-SA"); model.save_pretrained("./models/roberta-SA")'
 # RUN python3 -c 'from transformers import AutoTokenizer, AutoModelForSeq2SeqLM; tokenizer = AutoTokenizer.from_pretrained("facebook/bart-large-cnn"); model = AutoModelForSeq2SeqLM.from_pretrained("facebook/bart-large-cnn"); tokenizer.save_pretrained("./models/bart-summary"); model.save_pretrained("./models/bart-summary")'
 
 COPY . .
