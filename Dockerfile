@@ -19,10 +19,8 @@ RUN useradd -m -r user && \
 COPY requirements.txt ./
 RUN pip install -r requirements.txt
 
-RUN python -c 'from transformers import AutoTokenizer; tokenizer = AutoTokenizer.from_pretrained("cardiffnlp/twitter-roberta-base-sentiment"); tokenizer2 = AutoTokenizer.from_pretrained("facebook/bart-large-cnn")'
-RUN python -c 'from transformers import AutoModelForSequenceClassification; model = AutoModelForSequenceClassification.from_pretrained("cardiffnlp/twitter-roberta-base-sentiment");'
-RUN python -c 'from transformers import AutoModelForSeq2SeqLM; model = AutoModelForSeq2SeqLM.from_pretrained("facebook/bart-large-cnn");'
-RUN python -c 'from sentence_transformers import SentenceTransformer; sentence_model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")'
+RUN python -c 'from transformers import AutoTokenizer, AutoModelForTokenClassification; tokenizer = AutoTokenizer.from_pretrained("cardiffnlp/twitter-roberta-base-sentiment"); model = AutoModelForSequenceClassification.from_pretrained("cardiffnlp/twitter-roberta-base-sentiment"); tokenizer.save_pretrained("./models/roberta-SA"); model.save_pretrained("./models/roberta-SA")'
+RUN python -c 'from transformers import AutoTokenizer, AutoModelForSeq2SeqLM; tokenizer = AutoTokenizer.from_pretrained("facebook/bart-large-cnn"); model = AutoModelForSeq2SeqLM.from_pretrained("facebook/bart-large-cnn"); tokenizer.save_pretrained("./models/bart-summary"); model.save_pretrained("./models/bart-summary")'
 
 COPY . .
 

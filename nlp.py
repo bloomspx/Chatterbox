@@ -53,8 +53,11 @@ def extract_results(data):
 def generate_summary(message):
 
     # Summarization model
-    tokenizer = AutoTokenizer.from_pretrained("facebook/bart-large-cnn")
-    model = AutoModelForSeq2SeqLM.from_pretrained("facebook/bart-large-cnn")
+    tokenizer = AutoTokenizer.from_pretrained(dir_path + "/models/bart-summary")
+    model = AutoModelForSeq2SeqLM.from_pretrained(dir_path + "/models/bart-summary")
+
+    # tokenizer = AutoTokenizer.from_pretrained("facebook/bart-large-cnn")
+    # model = AutoModelForSeq2SeqLM.from_pretrained("facebook/bart-large-cnn")
 
     # encode text into tensor of integers
     inputs = tokenizer.encode("summarize:" + message, return_tensors="pt", max_length=1024, truncation=True)
@@ -78,8 +81,11 @@ def generate_sentiments(message):
     nltk.data.path.append(dir_path + '/models/nltk_data')
 
     # sentiment analysis model
-    tokenizer = AutoTokenizer.from_pretrained("cardiffnlp/twitter-roberta-base-sentiment")
-    model = AutoModelForSequenceClassification.from_pretrained("cardiffnlp/twitter-roberta-base-sentiment")
+    tokenizer = AutoTokenizer.from_pretrained(dir_path + "/models/roberta-SA")
+    model = AutoModelForSequenceClassification.from_pretrained(dir_path + "/models/roberta-SA")
+
+    # tokenizer = AutoTokenizer.from_pretrained("cardiffnlp/twitter-roberta-base-sentiment")
+    # model = AutoModelForSequenceClassification.from_pretrained("cardiffnlp/twitter-roberta-base-sentiment")
     
     labels=['Negative', 'Neutral', 'Positive']
 
@@ -122,8 +128,8 @@ def generate_topics(document):
     failBert = False
     global topics_words
 
-    # modelPath = dir_path + '/models/all-MiniLM-L6-v2' 
-    sentence_model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
+    modelPath = dir_path + '/models/all-MiniLM-L6-v2' 
+    sentence_model = SentenceTransformer(modelPath)
     vectorizer_model = CountVectorizer(stop_words="english")
 
     # OPTIMALLY RUN BERTOPIC
