@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, jsonify, send_file
+from flask import Flask, render_template, request, redirect, jsonify, send_file, Response
 from nlp import generate_sentiments, generate_summary, generate_topics, generate_word_cloud, extract_text, extract_results
 from main_vosk import run_vosk
 from flask_cors import CORS
@@ -18,13 +18,11 @@ def testFetch():
     try:
         outJson = {'success': "Test-fetch is working"}
         response = jsonify(outJson)
-        response.headers.add('Access-Control-Allow-Origin', 'http://frontend-service-myproject.192.168.42.57.nip.io')
+        response.headers.add('Access-Control-Allow-Origin', '*')
         return response, 200
     except Exception as err:
-        errorJson = {'error': err}
-        response = jsonify(errorJson)
-        response.headers.add('Access-Control-Allow-Origin', 'http://frontend-service-myproject.192.168.42.57.nip.io')
-        return response, 500
+        print("ERROR: ", err)
+        return jsonify({"error": "an error occurred, check your logs."}), 500
 
 ### ------ TEXT ANALYSIS METHODS ------ ###
 
@@ -60,13 +58,11 @@ def performTA():
             json.dump(outJson, f, ensure_ascii=False, indent=4)    
         
         response = jsonify(outJson)
-        response.headers.add('Access-Control-Allow-Origin', 'http://frontend-service-myproject.192.168.42.57.nip.io')
+        response.headers.add('Access-Control-Allow-Origin', '*')
         return response, 200
     except Exception as err:
-        errorJson = {'error': err}
-        response = jsonify(errorJson)
-        response.headers.add('Access-Control-Allow-Origin', 'http://frontend-service-myproject.192.168.42.57.nip.io')
-        return response, 500
+        print("ERROR: ", err)
+        return jsonify({"error": "an error occurred, check your logs."}), 500
 
 @app.route('/fetch-results', methods=['GET', 'POST'])
 def fetchResults():
@@ -80,13 +76,11 @@ def fetchResults():
         }
         
         response = jsonify(outJson)
-        response.headers.add('Access-Control-Allow-Origin', 'http://frontend-service-myproject.192.168.42.57.nip.io')
+        response.headers.add('Access-Control-Allow-Origin', '*')
         return response, 200
     except Exception as err:
-        errorJson = {'error': err}
-        response = jsonify(errorJson)
-        response.headers.add('Access-Control-Allow-Origin', 'http://frontend-service-myproject.192.168.42.57.nip.io')
-        return response, 500
+        print("ERROR: ", err)
+        return jsonify({"error": "an error occurred, check your logs."}), 500
 
 ### ------ SPEECH TO TEXT METHODS ------ ###    
 
