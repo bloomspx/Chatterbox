@@ -5,7 +5,7 @@ export default async function callApi(type, values) {
     console.log(values)
 
     if (type === "text-analysis") {
-        data = await fetch(`http://backend-service-myproject.192.168.42.27.nip.io/text-analysis`,{
+        data = await fetch(`http://backend-service-myproject.192.168.42.244.nip.io/text-analysis`,{
             method:'POST',
             mode: 'cors',
             headers : {
@@ -22,7 +22,7 @@ export default async function callApi(type, values) {
     }
 
     else if (type === "fetch-results") {
-        data = await fetch(`http://backend-service-myproject.192.168.42.27.nip.io/fetch-results`,{
+        data = await fetch(`http://backend-service-myproject.192.168.42.244.nip.io/fetch-results`,{
             method:'POST',
             mode: 'cors',
             headers : {
@@ -39,7 +39,7 @@ export default async function callApi(type, values) {
     }
 
     else if (type === "test-fetch") {
-        data = await fetch(`http://backend-service-myproject.192.168.42.27.nip.io/test-fetch`,{
+        data = await fetch(`http://backend-service-myproject.192.168.42.244.nip.io/test-fetch`,{
             method:'GET',
             mode: 'cors'})
         .then((res)=> res.json())
