@@ -81,11 +81,11 @@ def generate_sentiments(message):
     nltk.data.path.append(dir_path + '/models/nltk_data')
 
     # sentiment analysis model
-    # tokenizer = AutoTokenizer.from_pretrained(dir_path + "/models/roberta-SA")
-    # model = AutoModelForSequenceClassification.from_pretrained(dir_path + "/models/roberta-SA")
+    tokenizer = AutoTokenizer.from_pretrained(dir_path + "/models/roberta-SA")
+    model = AutoModelForSequenceClassification.from_pretrained(dir_path + "/models/roberta-SA")
 
-    tokenizer = AutoTokenizer.from_pretrained("cardiffnlp/twitter-roberta-base-sentiment", cache_dir="./models")
-    model = AutoModelForSequenceClassification.from_pretrained("cardiffnlp/twitter-roberta-base-sentiment", cache_dir="./models")
+    # tokenizer = AutoTokenizer.from_pretrained("cardiffnlp/twitter-roberta-base-sentiment", cache_dir="./models")
+    # model = AutoModelForSequenceClassification.from_pretrained("cardiffnlp/twitter-roberta-base-sentiment", cache_dir="./models")
     
     labels=['Negative', 'Neutral', 'Positive']
 
