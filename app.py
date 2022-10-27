@@ -21,7 +21,10 @@ def testFetch():
         response.headers.add('Access-Control-Allow-Origin', '*')
         return response, 200
     except Exception as err:
-        return jsonify({'error': err}), 500
+        errorJson = {'error': err}
+        response = jsonify(errorJson)
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response, 500
 
 ### ------ TEXT ANALYSIS METHODS ------ ###
 
@@ -60,7 +63,10 @@ def performTA():
         response.headers.add('Access-Control-Allow-Origin', '*')
         return response, 200
     except Exception as err:
-        return jsonify({'error': err}), 500
+        errorJson = {'error': err}
+        response = jsonify(errorJson)
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response, 500
 
 @app.route('/fetch-results', methods=['GET', 'POST'])
 def fetchResults():
@@ -77,7 +83,10 @@ def fetchResults():
         response.headers.add('Access-Control-Allow-Origin', '*')
         return response, 200
     except Exception as err:
-        return jsonify({'error': err}), 500
+        errorJson = {'error': err}
+        response = jsonify(errorJson)
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response, 500
 
 ### ------ SPEECH TO TEXT METHODS ------ ###    
 
