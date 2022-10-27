@@ -6,9 +6,14 @@ export default async function callApi(type, values) {
 
     if (type === "text-analysis") {
         data = await fetch(`http://backend-service-myproject.192.168.42.57.nip.io/text-analysis`,{
-            method:'POST',
-            // mode: 'cors',
-            headers : {'Content-Type':'application/json'},
+            method:'GET',
+            mode: 'cors',
+            headers : {
+                "Access-Control-Allow-Headers" : "Content-Type",
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "POST,GET",
+                'Content-Type':'application/json'
+            },
             body:JSON.stringify(values)})
         .then((res)=> res.json())
         .then(response => {
@@ -18,9 +23,14 @@ export default async function callApi(type, values) {
 
     else if (type === "fetch-results") {
         data = await fetch(`http://backend-service-myproject.192.168.42.57.nip.io/fetch-results`,{
-            method:'POST',
-            // mode: 'cors',
-            headers : {'Content-Type':'application/json'},
+            method:'GET',
+            mode: 'cors',
+            headers : {
+                "Access-Control-Allow-Headers" : "Content-Type",
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "POST,GET",
+                'Content-Type':'application/json'
+            },
             body:JSON.stringify(values)})
         .then((res)=> res.json())
         .then(response => {
@@ -30,8 +40,8 @@ export default async function callApi(type, values) {
 
     else if (type === "test-fetch") {
         data = await fetch(`http://backend-service-myproject.192.168.42.57.nip.io/test-fetch`,{
-            method:'GET'})
-            // mode: 'cors'})
+            method:'GET',
+            mode: 'cors'})
         .then((res)=> res.json())
         .then(response => {
             return response})
