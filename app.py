@@ -47,7 +47,7 @@ def performTA():
         num_words = len(word_tokenize(text))
 
         sentimentJson = generate_sentiments(text)
-        # summarizedJson = generate_summary(text)
+        summarizedJson = generate_summary(text)
         # topicJson = generate_topics(text)
         # wordcloudJson = generate_word_cloud(text, filename)
 
@@ -56,7 +56,7 @@ def performTA():
             'text':text,
             'sentcount':num_sent, 
             'wordcount':num_words,
-            # **summarizedJson,
+            **summarizedJson,
             **sentimentJson,
             # **topicJson,
             # **wordcloudJson

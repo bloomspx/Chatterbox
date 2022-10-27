@@ -53,11 +53,11 @@ def extract_results(data):
 def generate_summary(message):
 
     # Summarization model
-    # tokenizer = AutoTokenizer.from_pretrained(dir_path + "/models/bart-summary")
-    # model = AutoModelForSeq2SeqLM.from_pretrained(dir_path + "/models/bart-summary")
+    tokenizer = AutoTokenizer.from_pretrained(dir_path + "/models/bart-summary")
+    model = AutoModelForSeq2SeqLM.from_pretrained(dir_path + "/models/bart-summary")
 
-    tokenizer = AutoTokenizer.from_pretrained("facebook/bart-large-cnn", cache_dir="./models")
-    model = AutoModelForSeq2SeqLM.from_pretrained("facebook/bart-large-cnn", cache_dir="./models")
+    # tokenizer = AutoTokenizer.from_pretrained("facebook/bart-large-cnn", cache_dir="./models")
+    # model = AutoModelForSeq2SeqLM.from_pretrained("facebook/bart-large-cnn", cache_dir="./models")
 
     # encode text into tensor of integers
     inputs = tokenizer.encode("summarize:" + message, return_tensors="pt", max_length=1024, truncation=True)
