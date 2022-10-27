@@ -21,8 +21,15 @@ def testFetch():
         response.headers.add('Access-Control-Allow-Origin', '*')
         return response, 200
     except Exception as err:
-        print("ERROR: ", err)
-        return jsonify({"error": "an error occurred, check your logs."}), 500
+        response = err.get_response()
+        # replace the body with JSON
+        response.data = json.dumps({
+            "code": err.code,
+            "name": err.name,
+            "description": err.description,
+        })
+        response.content_type = "application/json"
+        return response
 
 ### ------ TEXT ANALYSIS METHODS ------ ###
 
@@ -61,8 +68,15 @@ def performTA():
         response.headers.add('Access-Control-Allow-Origin', '*')
         return response, 200
     except Exception as err:
-        print("ERROR: ", err)
-        return jsonify({"error": "an error occurred, check your logs."}), 500
+        response = err.get_response()
+        # replace the body with JSON
+        response.data = json.dumps({
+            "code": err.code,
+            "name": err.name,
+            "description": err.description,
+        })
+        response.content_type = "application/json"
+        return response
 
 @app.route('/fetch-results', methods=['GET', 'POST'])
 def fetchResults():
@@ -79,8 +93,15 @@ def fetchResults():
         response.headers.add('Access-Control-Allow-Origin', '*')
         return response, 200
     except Exception as err:
-        print("ERROR: ", err)
-        return jsonify({"error": "an error occurred, check your logs."}), 500
+        response = err.get_response()
+        # replace the body with JSON
+        response.data = json.dumps({
+            "code": err.code,
+            "name": err.name,
+            "description": err.description,
+        })
+        response.content_type = "application/json"
+        return response
 
 ### ------ SPEECH TO TEXT METHODS ------ ###    
 
