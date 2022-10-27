@@ -1,4 +1,4 @@
-# bertopic==0.12.0
+bertopic==0.12.0
 blis==0.7.8
 catalogue==2.0.8
 certifi==2022.9.24
@@ -17,7 +17,7 @@ filelock==3.8.0
 Flask==2.2.2
 Flask-Cors==3.0.10
 fonttools==4.37.4
-# hdbscan==0.8.28
+hdbscan==0.8.28
 huggingface-hub==0.10.0
 idna==3.4
 importlib-metadata==5.0.0
