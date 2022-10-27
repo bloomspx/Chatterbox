@@ -4,7 +4,7 @@ ENV APP_HOME /app
 
 ENV NUMBA_CACHE_DIR=/tmp/numba_cache
 
-ENV SENTENCE_TRANSFORMERS_HOME=./.config python train.py
+ENV SENTENCE_TRANSFORMERS_HOME=/home/cache
 
 RUN pip install -U \
     pip \
