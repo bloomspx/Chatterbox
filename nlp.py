@@ -53,11 +53,11 @@ def extract_results(data):
 def generate_summary(message):
 
     # Summarization model
-    tokenizer = AutoTokenizer.from_pretrained(dir_path + "/models/bart-summary")
-    model = AutoModelForSeq2SeqLM.from_pretrained(dir_path + "/models/bart-summary")
+    # tokenizer = AutoTokenizer.from_pretrained(dir_path + "/models/bart-summary")
+    # model = AutoModelForSeq2SeqLM.from_pretrained(dir_path + "/models/bart-summary")
 
-    # tokenizer = AutoTokenizer.from_pretrained("facebook/bart-large-cnn")
-    # model = AutoModelForSeq2SeqLM.from_pretrained("facebook/bart-large-cnn")
+    tokenizer = AutoTokenizer.from_pretrained("facebook/bart-large-cnn", cache_dir="./models")
+    model = AutoModelForSeq2SeqLM.from_pretrained("facebook/bart-large-cnn", cache_dir="./models")
 
     # encode text into tensor of integers
     inputs = tokenizer.encode("summarize:" + message, return_tensors="pt", max_length=1024, truncation=True)
@@ -81,11 +81,11 @@ def generate_sentiments(message):
     nltk.data.path.append(dir_path + '/models/nltk_data')
 
     # sentiment analysis model
-    tokenizer = AutoTokenizer.from_pretrained(dir_path + "/models/roberta-SA")
-    model = AutoModelForSequenceClassification.from_pretrained(dir_path + "/models/roberta-SA")
+    # tokenizer = AutoTokenizer.from_pretrained(dir_path + "/models/roberta-SA")
+    # model = AutoModelForSequenceClassification.from_pretrained(dir_path + "/models/roberta-SA")
 
-    # tokenizer = AutoTokenizer.from_pretrained("cardiffnlp/twitter-roberta-base-sentiment")
-    # model = AutoModelForSequenceClassification.from_pretrained("cardiffnlp/twitter-roberta-base-sentiment")
+    tokenizer = AutoTokenizer.from_pretrained("cardiffnlp/twitter-roberta-base-sentiment", cache_dir="./models")
+    model = AutoModelForSequenceClassification.from_pretrained("cardiffnlp/twitter-roberta-base-sentiment", cache_dir="./models")
     
     labels=['Negative', 'Neutral', 'Positive']
 
