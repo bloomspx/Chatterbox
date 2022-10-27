@@ -6,6 +6,7 @@ from nltk.tokenize import sent_tokenize, word_tokenize
 import requests, os, time, sys, base64, nltk, json
 
 app = Flask(__name__)
+app.config['CORS_HEADERS'] = 'Content-Type'
 cors = CORS(app)
 
 @app.route('/', methods=['GET'])
@@ -16,7 +17,9 @@ def home():
 def testFetch():
     try:
         outJson = {'success': "Test-fetch is working"}
-        return jsonify(outJson), 200
+        response = jsonify(outJson)
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response, 200
     except Exception as err:
         return jsonify({'error': err}), 500
 
@@ -53,7 +56,9 @@ def performTA():
         with open(dir_path +  '/output/json/results_{}.json'.format(filename), 'w', encoding='utf-8') as f:
             json.dump(outJson, f, ensure_ascii=False, indent=4)    
         
-        return jsonify(outJson), 200
+        response = jsonify(outJson)
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response, 200
     except Exception as err:
         return jsonify({'error': err}), 500
 
@@ -67,7 +72,10 @@ def fetchResults():
         outJson = {
             **result
         }
-        return jsonify(outJson), 200
+        
+        response = jsonify(outJson)
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response, 200
     except Exception as err:
         return jsonify({'error': err}), 500
 
