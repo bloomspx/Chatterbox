@@ -10,7 +10,7 @@ export default async function callApi(type, values) {
             mode: 'cors',
             headers : {
                 "Access-Control-Allow-Headers" : "Content-Type",
-                "Access-Control-Allow-Origin": "*",
+                // "Access-Control-Allow-Origin": "*",
                 "Access-Control-Allow-Methods": "POST,GET",
                 'Content-Type':'application/json'
             },
@@ -27,7 +27,7 @@ export default async function callApi(type, values) {
             mode: 'cors',
             headers : {
                 "Access-Control-Allow-Headers" : "Content-Type",
-                "Access-Control-Allow-Origin": "*",
+                // "Access-Control-Allow-Origisn": "*",
                 "Access-Control-Allow-Methods": "POST,GET",
                 'Content-Type':'application/json'
             },
