@@ -19,6 +19,11 @@ RUN useradd -m -r user && \
 COPY requirements.txt ./
 RUN pip install -r requirements.txt
 
+RUN python -c 'from transformers import AutoTokenizer; tokenizer = AutoTokenizer.from_pretrained("cardiffnlp/twitter-roberta-base-sentiment"); tokenizer2 = AutoTokenizer.from_pretrained("facebook/bart-large-cnn")'
+RUN python -c 'from transformers import AutoModelForSequenceClassification; model = AutoModelForSequenceClassification.from_pretrained("cardiffnlp/twitter-roberta-base-sentiment");'
+RUN python -c 'from transformers import AutoModelForSeq2SeqLM; model = AutoModelForSeq2SeqLM.from_pretrained("facebook/bart-large-cnn");'
+RUN python -c 'from sentence-transformers import SentenceTransformer; sentence_model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")'
+
 COPY . .
 
 USER user
