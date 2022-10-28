@@ -48,8 +48,8 @@ def performTA():
 
         # sentimentJson = generate_sentiments(text)
         # summarizedJson = generate_summary(text)
-        # topicJson = generate_topics(text)
-        wordcloudJson = generate_word_cloud(text, filename)
+        topicJson = generate_topics(text)
+        # wordcloudJson = generate_word_cloud(text, filename)
 
         outJson = {
             'filename':filename,
@@ -58,8 +58,8 @@ def performTA():
             'wordcount':num_words,
             # **summarizedJson,
             # **sentimentJson,
-            # **topicJson,
-            **wordcloudJson
+            **topicJson,
+            # **wordcloudJson
         }
         # with open(dir_path +  '/output/json/results_{}.json'.format(filename), 'w', encoding='utf-8') as f:
         #     json.dump(outJson, f, ensure_ascii=False, indent=4)    
