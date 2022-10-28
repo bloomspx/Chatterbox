@@ -55,9 +55,9 @@ const Dashboard = (props) => {
                     wordText="Summary"
                     wordSubtext="Extracts most important information from document"
                     sentiment={sentiment}
-                    content={
-                        <>{data['summary']}</>
-                    }
+                    // content={
+                    //     <>{data['summary']}</>
+                    // }
                 />
             </div>
             <div className="visual table">
