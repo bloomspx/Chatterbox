@@ -128,8 +128,9 @@ def generate_topics(document):
     failBert = False
     global topics_words
 
-    modelPath = dir_path + '/models/all-MiniLM-L6-v2' 
+    modelPath = dir_path + '/models/all-MiniLM' 
     sentence_model = SentenceTransformer(modelPath)
+    # sentence_model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
     vectorizer_model = CountVectorizer(stop_words="english")
 
     # OPTIMALLY RUN BERTOPIC
