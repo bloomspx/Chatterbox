@@ -128,9 +128,8 @@ def generate_topics(document):
     failBert = False
     global topics_words
 
-    modelPath = dir_path + '/models/all-MiniLM' 
-    sentence_model = SentenceTransformer(modelPath)
-    # sentence_model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
+    embedding_model = SentenceTransformer(dir_path + '/models/all-MiniLM' )
+    # embedding_model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
     vectorizer_model = CountVectorizer(stop_words="english")
 
     # OPTIMALLY RUN BERTOPIC
@@ -139,7 +138,7 @@ def generate_topics(document):
             data = sent_tokenize(document)
             topic_model = BERTopic(calculate_probabilities=True,
                                 diversity=0.2,
-                                embedding_model=sentence_model,
+                                embedding_model=embedding_model,
                                 vectorizer_model=vectorizer_model,
                                 verbose=True)
 
@@ -154,7 +153,7 @@ def generate_topics(document):
         
     if (failBert):
         # KEYBERT ALTERNATIVE FOR SHORTER DOCUMENTS
-        kw_model = KeyBERT(model=sentence_model)
+        kw_model = KeyBERT(model=embedding_model)
 
         topics_words = kw_model.extract_keywords(document,
                                         # keyphrase_ngram_range=(1, 2),
