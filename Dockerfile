@@ -13,7 +13,7 @@ RUN pip install -U \
 WORKDIR $APP_HOME
 
 RUN useradd -m -r user && \
-    chown user /app
+    chown user -R user:user /app
 
 COPY requirements.txt ./
 
