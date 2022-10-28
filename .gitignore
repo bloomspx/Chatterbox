@@ -2,3 +2,4 @@
 /node_modules
 __pycache__/
 *.pyc
+/models/all-MiniLM-L6-v2
