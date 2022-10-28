@@ -186,7 +186,7 @@ def generate_word_cloud(message, filename):
     imageRes = wc.to_image()
 
     # Save wordcloud locally to /output/wordcloud
-    wc.to_file(dir_path + "/output/wordcloud/{}.png".format(filename))
+    # wc.to_file(dir_path + "/output/wordcloud/{}.png".format(filename))
     
     # Convert to bytestring 
     file_object = io.BytesIO()
