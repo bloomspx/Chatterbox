@@ -116,7 +116,7 @@ export default function TextAnalysis() {
       }
     };
     fetchFileResults()
-  }, [files]);
+  }, []);
 
   useEffect(() => {
     const fetchFileData = () => {
