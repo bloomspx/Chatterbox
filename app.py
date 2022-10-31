@@ -7,7 +7,7 @@ import requests, os, time, sys, base64, nltk, json
 
 app = Flask(__name__)
 app.config['CORS_HEADERS'] = 'Content-Type'
-cors = CORS(app)
+# cors = CORS(app)
 
 @app.route('/', methods=['GET'])
 def home():
@@ -50,6 +50,8 @@ def performTA():
         # summarizedJson = generate_summary(text)
         topicJson = generate_topics(text)
         wordcloudJson = generate_word_cloud(text, filename)
+
+        print("TOPICJSON FINAL:", topicJson)
 
         outJson = {
             'filename':filename,
@@ -107,37 +109,52 @@ def fetchResults():
 
 @app.route('/speech-to-text', methods=['GET', 'POST'])
 def performTTS():
-    request_file = request.get_json()
-    filename = request_file['name']
-    filedata = request_file['video']
-    split_filedata = filedata.split(",")
-    print("filename: ", filename, "\n")
-    print("filedata: ", type(filedata), "\n")
-    print("split_filedata: ", split_filedata[0], "\n")
-    if filename[-3:] == 'mp4':
-        wavfile = filename.rstrip("mp4") + "wav"
-    else:
-        wavfile = filename.rstrip("mp3") + "wav"
-    print("wavfile: ", wavfile, "\n")
+    try:
+        request_file = request.get_json()
+        filename = request_file['name']
+        filedata = request_file['video']
+        split_filedata = filedata.split(",")
+        print("filename: ", filename, "\n")
+        print("filedata: ", type(filedata), "\n")
+        print("split_filedata: ", split_filedata[0], "\n")
+        if filename[-3:] == 'mp4':
+            wavfile = filename.rstrip("mp4") + "wav"
+        else:
+            wavfile = filename.rstrip("mp3") + "wav"
+        print("wavfile: ", wavfile, "\n")
 
-    videodata = split_filedata[1]
-    if os.path.isfile(filename):
-        os.remove(filename)
-        print("Mp4 File deleted \n")
+        videodata = split_filedata[1]
+        if os.path.isfile(filename):
+            os.remove(filename)
+            print("Mp4 File deleted \n")
 
-    if os.path.isfile(wavfile):
-        os.remove(wavfile)
-        print("Wav File deleted \n")
-    
-    videofile = open(filename, "wb")
-    videofile.write(base64.b64decode(videodata))
-    videofile.close()
+        if os.path.isfile(wavfile):
+            os.remove(wavfile)
+            print("Wav File deleted \n")
+        
+        videofile = open(filename, "wb")
+        videofile.write(base64.b64decode(videodata))
+        videofile.close()
 
-    if filename != "": 
-        output = run_vosk(filename)
-        print("outputfile: ", filename)
+        if filename != "": 
+            output = run_vosk(filename)
+            print("outputfile: ", filename)
 
-    return jsonify({'result': output}), 200
+        outJson =  {'result': output}
+
+        response = jsonify(outJson)
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response, 200
+    except Exception as err:
+        response = err.get_response()
+        # replace the body with JSON
+        response.data = json.dumps({
+            "code": err.code,
+            "name": err.name,
+            "description": err.description,
+        })
+        response.content_type = "application/json"
+        return response
 
     
 

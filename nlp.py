@@ -135,6 +135,7 @@ def generate_topics(document):
     # OPTIMALLY RUN BERTOPIC
     if (failBert == False):
         try:
+            print("BerTopic....")
             data = sent_tokenize(document)
             topic_model = BERTopic(calculate_probabilities=True,
                                 diversity=0.2,
@@ -144,15 +145,16 @@ def generate_topics(document):
 
             topics, probabilities = topic_model.fit_transform(data)
             topics_words = topic_model.get_topic(0)
-            print("BerTopic:")
             if (topics_words == False):
                 failBert = True
+                print("BerTopic Failed.")
         except Exception as e:
             failBert = True
             print("BERTOPIC Error:", e) 
         
     if (failBert):
         try:
+            print("Keybert....")
             # KEYBERT ALTERNATIVE FOR SHORTER DOCUMENTS
             kw_model = KeyBERT(model=embedding_model)
 
@@ -164,7 +166,6 @@ def generate_topics(document):
                                             # vectorizer=KeyphraseCountVectorizer(),
                                             vectorizer=KeyphraseCountVectorizer(pos_pattern='<N.*>'),
                                             top_n=8)
-            print("Keybert:")
         except Exception as e:
             print("KEYBERT Error:", e) 
     # Altering data structure to pass to frontend 
@@ -179,7 +180,7 @@ def generate_topics(document):
         wordlist.append(word_vis)
 
     returnJson = {"topics": wordlist}
-    print(returnJson)
+    print("TOPICS CREATED SUCCESFULLY:", wordlist)
     return returnJson
 
 def generate_word_cloud(message, filename):
