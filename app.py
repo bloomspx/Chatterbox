@@ -33,6 +33,37 @@ def testFetch():
 
 ### ------ TEXT ANALYSIS METHODS ------ ###
 
+@app.route('/topic-modelling', methods=['GET', 'POST'])
+def performTM():
+    try:
+        dir_path = os.path.abspath('')
+        nltk.data.path.append(dir_path + '/models/nltk_data')
+        request_file = request.get_json()
+        filename = request_file['name']
+        data = request_file['data']
+        text = extract_text(filename, data)
+
+        topicJson = generate_topics(text)
+        print("TOPICJSON FINAL:", topicJson)
+
+        # with open(dir_path +  '/output/json/results_{}.json'.format(filename), 'w', encoding='utf-8') as f:
+        #     json.dump(outJson, f, ensure_ascii=False, indent=4)    
+        
+        response = jsonify(topicJson)
+        # response.headers.add('Access-Control-Allow-Origin', '*')
+        return response, 200
+    except Exception as err:
+        response = err.get_response()
+        # replace the body with JSON
+        response.data = json.dumps({
+            "code": err.code,
+            "name": err.name,
+            "description": err.description,
+        })
+        response.content_type = "application/json"
+        return response
+
+
 @app.route('/text-analysis', methods=['GET', 'POST'])
 def performTA():
     try:
@@ -48,10 +79,8 @@ def performTA():
 
         # sentimentJson = generate_sentiments(text)
         # summarizedJson = generate_summary(text)
-        topicJson = generate_topics(text)
+        # topicJson = generate_topics(text)
         wordcloudJson = generate_word_cloud(text, filename)
-
-        print("TOPICJSON FINAL:", topicJson)
 
         outJson = {
             'filename':filename,
@@ -60,7 +89,7 @@ def performTA():
             'wordcount':num_words,
             # **summarizedJson,
             # **sentimentJson,
-            **topicJson,
+            # **topicJson,
             **wordcloudJson
         }
         # with open(dir_path +  '/output/json/results_{}.json'.format(filename), 'w', encoding='utf-8') as f:
