@@ -7,7 +7,7 @@ import requests, os, time, sys, base64, nltk, json
 
 app = Flask(__name__)
 app.config['CORS_HEADERS'] = 'Content-Type'
-# cors = CORS(app)
+cors = CORS(app)
 
 @app.route('/', methods=['GET'])
 def home():
@@ -18,7 +18,7 @@ def testFetch():
     try:
         outJson = {'success': "Test-fetch is working"}
         response = jsonify(outJson)
-        response.headers.add('Access-Control-Allow-Origin', '*')
+        # response.headers.add('Access-Control-Allow-Origin', '*')
         return response, 200
     except Exception as err:
         response = err.get_response()
@@ -67,7 +67,7 @@ def performTA():
         #     json.dump(outJson, f, ensure_ascii=False, indent=4)    
         
         response = jsonify(outJson)
-        response.headers.add('Access-Control-Allow-Origin', '*')
+        # response.headers.add('Access-Control-Allow-Origin', '*')
         return response, 200
     except Exception as err:
         response = err.get_response()
@@ -92,7 +92,7 @@ def fetchResults():
         }
         
         response = jsonify(outJson)
-        response.headers.add('Access-Control-Allow-Origin', '*')
+        # response.headers.add('Access-Control-Allow-Origin', '*')
         return response, 200
     except Exception as err:
         response = err.get_response()
@@ -143,7 +143,7 @@ def performTTS():
         outJson =  {'result': output}
 
         response = jsonify(outJson)
-        response.headers.add('Access-Control-Allow-Origin', '*')
+        # response.headers.add('Access-Control-Allow-Origin', '*')
         return response, 200
     except Exception as err:
         response = err.get_response()
