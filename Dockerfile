@@ -23,8 +23,9 @@ RUN python3 -c 'from sentence_transformers import SentenceTransformer; model = S
 
 COPY . .
 
-RUN useradd -ms /bin/bash user
-RUN chown user:user -R /app
+RUN useradd -ms /bin/bash user && \ 
+    addgroup -S mods && adduser -S user -G mods && \
+    chown user:mods -R /app
 
 # RUN useradd -m -r user && \
 #     chown -R user: /app && \

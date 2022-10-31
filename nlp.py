@@ -1,3 +1,4 @@
+from shutil import register_unpack_format
 from sentence_transformers import SentenceTransformer
 from bertopic import BERTopic
 from sklearn.feature_extraction.text import CountVectorizer
@@ -21,7 +22,6 @@ def extract_text(filename, data):
     index = data.index(',')
     data_url = data[index+1:]
     decoded_text = base64.b64decode(data_url)
-    print(decoded_text)
     try: 
         if extension == '.pdf':
             with open("output/text/text_{}".format(filename), "wb") as f:
@@ -35,7 +35,7 @@ def extract_text(filename, data):
         with open("output/text/text_{}".format(filename), "w") as f:
             f.write(message)
     except Exception as err:
-            print(err, "occured in "+ filename)
+            print("EXTRACT TEXT ERROR: ", err, "occured in "+ filename)
     return message
 
 # extract results from json
@@ -47,7 +47,7 @@ def extract_results(data):
         outJson = json.loads(decoded_result)
         return outJson
     except Exception as err:
-        print(err)
+        print("EXTRACT RESULTS Error:", err)
 
 
 def generate_summary(message):
@@ -119,7 +119,7 @@ def generate_sentiments(message):
     sentimentJson["overall_sentiment"] = labels[np.argmax(avg_sentiments)]
     sentimentJson["sentiment_count"] = sentiment_count
     sentimentJson["sentiment_distribution"] = sentiment_by_sent
-    print(sentimentJson)
+    print("Sentiment JSON produced SUCCESSFULLY!")
     return sentimentJson
 
 
@@ -149,22 +149,24 @@ def generate_topics(document):
                 failBert = True
         except Exception as e:
             failBert = True
-            print(e) 
+            print("BERTOPIC Error:", e) 
         
     if (failBert):
-        # KEYBERT ALTERNATIVE FOR SHORTER DOCUMENTS
-        kw_model = KeyBERT(model=embedding_model)
+        try:
+            # KEYBERT ALTERNATIVE FOR SHORTER DOCUMENTS
+            kw_model = KeyBERT(model=embedding_model)
 
-        topics_words = kw_model.extract_keywords(document,
-                                        # keyphrase_ngram_range=(1, 2),
-                                        use_mmr=True,
-                                        diversity=0.3,
-                                        stop_words="english",
-                                        # vectorizer=KeyphraseCountVectorizer(),
-                                        vectorizer=KeyphraseCountVectorizer(pos_pattern='<N.*>'),
-                                        top_n=8)
-        print("Keybert:")
-
+            topics_words = kw_model.extract_keywords(document,
+                                            # keyphrase_ngram_range=(1, 2),
+                                            use_mmr=True,
+                                            diversity=0.3,
+                                            stop_words="english",
+                                            # vectorizer=KeyphraseCountVectorizer(),
+                                            vectorizer=KeyphraseCountVectorizer(pos_pattern='<N.*>'),
+                                            top_n=8)
+            print("Keybert:")
+        except Exception as e:
+            print("KEYBERT Error:", e) 
     # Altering data structure to pass to frontend 
     # wordlist = {}
     wordlist = []
@@ -177,6 +179,7 @@ def generate_topics(document):
         wordlist.append(word_vis)
 
     returnJson = {"topics": wordlist}
+    print(returnJson)
     return returnJson
 
 def generate_word_cloud(message, filename):
@@ -193,6 +196,7 @@ def generate_word_cloud(message, filename):
     imageRes.save(file_object, format='PNG')
     bytestring = base64.b64encode(file_object.getvalue())
     returnJson = {"wordcloud": bytestring.decode('utf-8')}
+    print("WORDCLOUD PRODUCED SUCCESSFULLY")
     return returnJson
 
 
