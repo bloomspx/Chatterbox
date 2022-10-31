@@ -50,15 +50,15 @@ const Dashboard = (props) => {
                 <h2>Text Analysis</h2>
             </div>
             <div className="sentences table">
-                <WordCard
+                {/* <WordCard
                     type="summary"
                     wordText="Summary"
                     wordSubtext="Extracts most important information from document"
                     sentiment={sentiment}
-                    // content={
-                    //     <>{data['summary']}</>
-                    // }
-                />
+                    content={
+                        <>{data['summary']}</>
+                    }
+                /> */}
             </div>
             <div className="visual table">
                 <VisualCard
@@ -73,7 +73,6 @@ const Dashboard = (props) => {
                                 className="simple-cloud"
                                 colorOptions={{ luminosity: 'dark'}}
                                 style={{ width: '100%', textAlign: 'center' }}
-                                on
                             />
                         </>
                     }
