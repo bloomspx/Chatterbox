@@ -64,6 +64,8 @@ def performTA():
         # with open(dir_path +  '/output/json/results_{}.json'.format(filename), 'w', encoding='utf-8') as f:
         #     json.dump(outJson, f, ensure_ascii=False, indent=4)    
         
+        print(outJson)
+
         response = jsonify(outJson)
         response.headers.add('Access-Control-Allow-Origin', '*')
         return response, 200

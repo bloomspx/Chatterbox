@@ -1,5 +1,8 @@
 FROM python:3.9
 
+RUN useradd -ms /bin/bash appuser && \
+    usermod -aG sudo appuser
+
 ENV APP_HOME /app
 
 ENV NUMBA_CACHE_DIR=/tmp/numba_cache
@@ -23,9 +26,6 @@ RUN python3 -c 'from transformers import AutoTokenizer, AutoModelForSequenceClas
 
 COPY . .
 
-# RUN adduser -D dockuser && \
-#     chown dockuser:dockuser -R /app/
-
 # RUN useradd -ms /bin/bash user 
 # RUN chown user:user -R /app
 
@@ -33,6 +33,6 @@ COPY . .
 #     chown -R user: /app && \
 #     chmod 777 /app
 
-# USER dockuser
+USER appuser
 
 CMD python3 app.py
