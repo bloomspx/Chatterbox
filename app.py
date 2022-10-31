@@ -61,7 +61,7 @@ def performTM():
         return response
 
 @app.route('/sentiment-analysis', methods=['GET', 'POST'])
-def performTM():
+def performSA():
     try:
         dir_path = os.path.abspath('')
         nltk.data.path.append(dir_path + '/models/nltk_data')
