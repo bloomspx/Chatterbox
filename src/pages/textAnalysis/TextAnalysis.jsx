@@ -101,8 +101,12 @@ export default function TextAnalysis() {
           .then((results) => {
             const allResults = (results.filter(p => p.status === "fulfilled" ))
               .map(c=>c.value);
-            setResults( ...results, ...allResults);
-            setCurrentResult(...results[0], ...allResults[0])
+            let overallResults = results.map((item, index) => {
+              Object.assign({}, item, allResults[index])
+            })
+            console.log(overallResults)
+            setResults(overallResults)
+            setCurrentResult(overallResults[0])
             setFilenames(allResults.map(f => f.filename))
             setCurrentFileName(allResults[0].filename)
             var endTime = performance.now()
