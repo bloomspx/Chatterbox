@@ -80,20 +80,6 @@ export default function TextAnalysis() {
     const fetchFileResults = async () => {
       try { 
         setLoading(true);
-        var startTime = performance.now()
-        
-        let topicPromises = location.state.map((obj) => {
-          return callApi("topic-modelling", obj)
-        });
-
-        Promise.allSettled(topicPromises)
-        .then((results) => {
-          const allTopicResults = (results.filter(p => p.status === "fulfilled" ))
-            .map(c=>c.value);
-          setResults(allTopicResults);
-          setCurrentResult(allTopicResults[0])
-        })
-
         let promises = location.state.map((obj) => {
           return callApi("text-analysis", obj)
         });
@@ -101,21 +87,14 @@ export default function TextAnalysis() {
           .then((results) => {
             const allResults = (results.filter(p => p.status === "fulfilled" ))
               .map(c=>c.value);
-            let overallResults = results.map((item, index) => {
-              Object.assign({}, item, allResults[index])
-            })
-            console.log(overallResults)
-            setResults(overallResults)
-            setCurrentResult(overallResults[0])
+            setResults(allResults);
+            setCurrentResult(allResults[0])
             setFilenames(allResults.map(f => f.filename))
             setCurrentFileName(allResults[0].filename)
-            var endTime = performance.now()
-            console.log(`Time Taken: ${(endTime - startTime)/1000}s`)
             setLoading(false);
           })
       }
       catch(err) {
-        var endTime = performance.now()
         setLoading(false);
       }
     };

@@ -5,13 +5,10 @@ export default async function callApi(type, values) {
     console.log(values)
 
     if (type === "text-analysis") {
-        data = await fetch(`http://backend-service-myproject.192.168.42.244.nip.io/text-analysis`,{
+        const fileData = await fetch(`http://backend-service-myproject.192.168.42.244.nip.io/text-analysis`,{
             method:'POST',
             mode: 'cors',
             headers : {
-                "Access-Control-Allow-Headers" : "Content-Type",
-                // "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Methods": "POST,GET",
                 'Content-Type':'application/json'
             },
             body:JSON.stringify(values)})
@@ -19,16 +16,11 @@ export default async function callApi(type, values) {
         .then(response => {
             return response})
         .catch(error => new Error(error));
-    }
-    
-    else if (type === "topic-modelling") {
-        data = await fetch(`http://backend-service-myproject.192.168.42.244.nip.io/topic-modelling`,{
+
+        const topicData = await fetch(`http://backend-service-myproject.192.168.42.244.nip.io/topic-modelling`,{
             method:'POST',
             mode: 'cors',
             headers : {
-                "Access-Control-Allow-Headers" : "Content-Type",
-                // "Access-Control-Allow-Origin": "*",
-                "Access-Control-Allow-Methods": "POST,GET",
                 'Content-Type':'application/json'
             },
             body:JSON.stringify(values)})
@@ -36,6 +28,9 @@ export default async function callApi(type, values) {
         .then(response => {
             return response})
         .catch(error => new Error(error));
+
+        data = {...fileData, ...topicData}
+        console.log(data)
     }
 
     else if (type === "fetch-results") {
