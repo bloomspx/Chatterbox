@@ -46,9 +46,6 @@ def performTM():
         topicJson = generate_topics(text)
         print("TOPICJSON FINAL:", topicJson)
 
-        # with open(dir_path +  '/output/json/results_{}.json'.format(filename), 'w', encoding='utf-8') as f:
-        #     json.dump(topicJson, f, ensure_ascii=False, indent=4)    
-        
         response = jsonify(topicJson)
         # response.headers.add('Access-Control-Allow-Origin', '*')
         return response, 200
@@ -63,6 +60,30 @@ def performTM():
         response.content_type = "application/json"
         return response
 
+@app.route('/sentiment-analysis', methods=['GET', 'POST'])
+def performTM():
+    try:
+        dir_path = os.path.abspath('')
+        nltk.data.path.append(dir_path + '/models/nltk_data')
+        request_file = request.get_json()
+        filename = request_file['name']
+        data = request_file['data']
+        text = extract_text(filename, data)
+        sentimentJson = generate_sentiments(text) 
+        
+        response = jsonify(sentimentJson)
+        # response.headers.add('Access-Control-Allow-Origin', '*')
+        return response, 200
+    except Exception as err:
+        response = err.get_response()
+        # replace the body with JSON
+        response.data = json.dumps({
+            "code": err.code,
+            "name": err.name,
+            "description": err.description,
+        })
+        response.content_type = "application/json"
+        return response
 
 @app.route('/text-analysis', methods=['GET', 'POST'])
 def performTA():
@@ -77,7 +98,7 @@ def performTA():
         num_sent = len(sent_tokenize(text))
         num_words = len(word_tokenize(text))
 
-        sentimentJson = generate_sentiments(text)
+        # sentimentJson = generate_sentiments(text)
         # summarizedJson = generate_summary(text)
         # topicJson = generate_topics(text)
         wordcloudJson = generate_word_cloud(text, filename)
@@ -88,12 +109,10 @@ def performTA():
             'sentcount':num_sent, 
             'wordcount':num_words,
             # **summarizedJson,
-            **sentimentJson,
+            # **sentimentJson,
             # **topicJson,
             **wordcloudJson
         }
-        # with open(dir_path +  '/output/json/results_{}.json'.format(filename), 'w', encoding='utf-8') as f:
-        #     json.dump(outJson, f, ensure_ascii=False, indent=4)    
         
         response = jsonify(outJson)
         # response.headers.add('Access-Control-Allow-Origin', '*')
@@ -116,9 +135,7 @@ def fetchResults():
         data = request_file['data']
         result = extract_results(data)
 
-        outJson = {
-            **result
-        }
+        outJson = { **result }
         
         response = jsonify(outJson)
         # response.headers.add('Access-Control-Allow-Origin', '*')
