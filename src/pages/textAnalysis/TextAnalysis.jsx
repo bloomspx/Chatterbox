@@ -81,6 +81,19 @@ export default function TextAnalysis() {
       try { 
         setLoading(true);
         var startTime = performance.now()
+        
+        let topicPromises = location.state.map((obj) => {
+          return callApi("topic-modelling", obj)
+        });
+
+        Promise.allSettled(topicPromises)
+        .then((results) => {
+          const allTopicResults = (results.filter(p => p.status === "fulfilled" ))
+            .map(c=>c.value);
+          setResults(allTopicResults);
+          setCurrentResult(allTopicResults[0])
+        })
+
         let promises = location.state.map((obj) => {
           return callApi("text-analysis", obj)
         });
@@ -88,8 +101,8 @@ export default function TextAnalysis() {
           .then((results) => {
             const allResults = (results.filter(p => p.status === "fulfilled" ))
               .map(c=>c.value);
-            setResults(allResults);
-            setCurrentResult(allResults[0])
+            setResults( ...results, allResults);
+            setCurrentResult(...results[0], allResults[0])
             setFilenames(allResults.map(f => f.filename))
             setCurrentFileName(allResults[0].filename)
             var endTime = performance.now()
@@ -126,7 +139,7 @@ export default function TextAnalysis() {
   }
   
   // console.log(files)  
-  // console.log(results)
+  console.log(results)
 
   return  (
     <div className="ta-container">
