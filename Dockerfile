@@ -1,7 +1,8 @@
 FROM python:3.9
 
-RUN useradd -ms /bin/bash appuser && \
-    usermod -aG sudo appuser
+USER root 
+# RUN useradd -ms /bin/bash appuser && \
+#     usermod -aG sudo appuser
 
 ENV APP_HOME /app
 
@@ -33,6 +34,6 @@ COPY . .
 #     chown -R user: /app && \
 #     chmod 777 /app
 
-USER appuser
+# USER appuser
 
 CMD python3 app.py
