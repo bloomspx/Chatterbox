@@ -47,7 +47,7 @@ def performTM():
         print("TOPICJSON FINAL:", topicJson)
 
         # with open(dir_path +  '/output/json/results_{}.json'.format(filename), 'w', encoding='utf-8') as f:
-        #     json.dump(outJson, f, ensure_ascii=False, indent=4)    
+        #     json.dump(topicJson, f, ensure_ascii=False, indent=4)    
         
         response = jsonify(topicJson)
         # response.headers.add('Access-Control-Allow-Origin', '*')
@@ -77,7 +77,7 @@ def performTA():
         num_sent = len(sent_tokenize(text))
         num_words = len(word_tokenize(text))
 
-        # sentimentJson = generate_sentiments(text)
+        sentimentJson = generate_sentiments(text)
         # summarizedJson = generate_summary(text)
         # topicJson = generate_topics(text)
         wordcloudJson = generate_word_cloud(text, filename)
@@ -88,7 +88,7 @@ def performTA():
             'sentcount':num_sent, 
             'wordcount':num_words,
             # **summarizedJson,
-            # **sentimentJson,
+            **sentimentJson,
             # **topicJson,
             **wordcloudJson
         }
