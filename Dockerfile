@@ -23,13 +23,13 @@ RUN python3 -c 'from sentence_transformers import SentenceTransformer; model = S
 
 COPY . .
 
-RUN useradd -ms /bin/bash user 
-RUN chown user:user -R /app
+# RUN useradd -ms /bin/bash user 
+# RUN chown user:user -R /app
 
-# RUN useradd -m -r user && \
-#     chown -R user: /app && \
-#     chmod 777 /app
+RUN useradd -m -r user && \
+    chown -R user: /app && \
+    chmod -R 777 /app
 
-# USER appuser
+USER user
 
 CMD python3 app.py
