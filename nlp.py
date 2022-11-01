@@ -183,14 +183,14 @@ def generate_topics(document):
     print("TOPICS CREATED SUCCESFULLY:", wordlist)
     return returnJson
 
-def generate_word_cloud(message, filename):
+def generate_word_cloud(message):
 
     wc = WordCloud(background_color="white",  width=1600, height=800)
     wc.generate(message)
     imageRes = wc.to_image()
 
     # Save wordcloud locally to /output/wordcloud
-    wc.to_file(dir_path + "/output/wordcloud/{}.png".format(filename))
+    # wc.to_file(dir_path + "/output/wordcloud/{}.png".format(filename))
     
     # Convert to bytestring 
     file_object = io.BytesIO()
