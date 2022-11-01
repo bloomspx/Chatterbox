@@ -18,8 +18,6 @@ export default async function callApi(type, values) {
             return response})
         .catch(error => new Error(error));
 
-        console.log(fileData)
-
         const topicData = await fetch(`http://backend-service-myproject.192.168.42.244.nip.io/topic-modelling`,{
             method:'POST',
             mode: 'cors',
@@ -44,8 +42,17 @@ export default async function callApi(type, values) {
             return response})
         .catch(error => new Error(error));
 
-        data = {...fileData, ...topicData, ...sentimentData}
-        console.log(data)
+        const summaryData = await fetch(`http://backend-service-myproject.192.168.42.244.nip.io/summary`,{
+            method:'POST',
+            mode: 'cors',
+            headers : {
+                'Content-Type':'application/json'
+            },
+            body:JSON.stringify(fileData)})
+        .then((res)=> res.json())
+        .then(response => {
+            return response})
+        .catch(error => new Error(error));
 
         const wordCloudData = await fetch(`http://backend-service-myproject.192.168.42.244.nip.io/word-cloud`,{
             method:'POST',
@@ -59,7 +66,7 @@ export default async function callApi(type, values) {
             return response})
         .catch(error => new Error(error));
 
-        data = {...fileData, ...topicData, ...sentimentData, ...wordCloudData}
+        data = {...fileData, ...topicData, ...sentimentData, ...summaryData, ...wordCloudData}
         console.log(data)
     }
 
