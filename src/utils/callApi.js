@@ -5,7 +5,8 @@ export default async function callApi(type, values) {
     console.log(values)
 
     if (type === "text-analysis") {
-        const fileData = await fetch(`http://backend-service-myproject.192.168.42.244.nip.io/text-analysis`,{
+
+        const fileData = await fetch(`http://backend-service-myproject.192.168.42.244.nip.io/extract-text`,{
             method:'POST',
             mode: 'cors',
             headers : {
@@ -17,13 +18,15 @@ export default async function callApi(type, values) {
             return response})
         .catch(error => new Error(error));
 
+        console.log(fileData)
+
         const topicData = await fetch(`http://backend-service-myproject.192.168.42.244.nip.io/topic-modelling`,{
             method:'POST',
             mode: 'cors',
             headers : {
                 'Content-Type':'application/json'
             },
-            body:JSON.stringify(values)})
+            body:JSON.stringify(fileData)})
         .then((res)=> res.json())
         .then(response => {
             return response})
@@ -35,13 +38,28 @@ export default async function callApi(type, values) {
             headers : {
                 'Content-Type':'application/json'
             },
-            body:JSON.stringify(values)})
+            body:JSON.stringify(fileData)})
         .then((res)=> res.json())
         .then(response => {
             return response})
         .catch(error => new Error(error));
 
         data = {...fileData, ...topicData, ...sentimentData}
+        console.log(data)
+
+        const wordCloudData = await fetch(`http://backend-service-myproject.192.168.42.244.nip.io/word-cloud`,{
+            method:'POST',
+            mode: 'cors',
+            headers : {
+                'Content-Type':'application/json'
+            },
+            body:JSON.stringify(fileData)})
+        .then((res)=> res.json())
+        .then(response => {
+            return response})
+        .catch(error => new Error(error));
+
+        data = {...fileData, ...topicData, ...sentimentData, ...wordCloudData}
         console.log(data)
     }
 
