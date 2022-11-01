@@ -36,12 +36,8 @@ def testFetch():
 @app.route('/topic-modelling', methods=['GET', 'POST'])
 def performTM():
     try:
-        dir_path = os.path.abspath('')
-        nltk.data.path.append(dir_path + '/models/nltk_data')
         request_file = request.get_json()
-        filename = request_file['name']
-        data = request_file['data']
-        text = extract_text(filename, data)
+        text = request_file['text']
 
         topicJson = generate_topics(text)
         print("TOPICJSON FINAL:", topicJson)
@@ -63,14 +59,9 @@ def performTM():
 @app.route('/sentiment-analysis', methods=['GET', 'POST'])
 def performSA():
     try:
-        dir_path = os.path.abspath('')
-        nltk.data.path.append(dir_path + '/models/nltk_data')
         request_file = request.get_json()
-        filename = request_file['name']
-        data = request_file['data']
-        text = extract_text(filename, data)
-        sentimentJson = generate_sentiments(text) 
-        
+        text = request_file['text']
+        sentimentJson = generate_sentiments(text)         
         response = jsonify(sentimentJson)
         # response.headers.add('Access-Control-Allow-Origin', '*')
         return response, 200
@@ -85,8 +76,51 @@ def performSA():
         response.content_type = "application/json"
         return response
 
-@app.route('/text-analysis', methods=['GET', 'POST'])
-def performTA():
+@app.route('/word-cloud', methods=['GET', 'POST'])
+def performWC():
+    try:
+        request_file = request.get_json()
+        text = request_file['text']
+        wordcloudJson = generate_word_cloud(text)         
+        response = jsonify(wordcloudJson)
+        # response.headers.add('Access-Control-Allow-Origin', '*')
+        return response, 200
+    except Exception as err:
+        response = err.get_response()
+        # replace the body with JSON
+        response.data = json.dumps({
+            "code": err.code,
+            "name": err.name,
+            "description": err.description,
+        })
+        response.content_type = "application/json"
+        return response
+
+# @app.route('/summary', methods=['GET', 'POST'])
+# def performSummary():
+#     try:
+#         request_file = request.get_json()
+#         filename = request_file['name']
+#         data = request_file['data']
+#         text = extract_text(filename, data)
+#         sentimentJson = generate_sentiments(text) 
+        
+#         response = jsonify(sentimentJson)
+#         # response.headers.add('Access-Control-Allow-Origin', '*')
+#         return response, 200
+#     except Exception as err:
+#         response = err.get_response()
+#         # replace the body with JSON
+#         response.data = json.dumps({
+#             "code": err.code,
+#             "name": err.name,
+#             "description": err.description,
+#         })
+#         response.content_type = "application/json"
+#         return response
+
+@app.route('/extract-text', methods=['GET', 'POST'])
+def performET():
     try:
         dir_path = os.path.abspath('')
         nltk.data.path.append(dir_path + '/models/nltk_data')
@@ -101,7 +135,7 @@ def performTA():
         # sentimentJson = generate_sentiments(text)
         # summarizedJson = generate_summary(text)
         # topicJson = generate_topics(text)
-        wordcloudJson = generate_word_cloud(text, filename)
+        # wordcloudJson = generate_word_cloud(text, filename)
 
         outJson = {
             'filename':filename,
@@ -111,7 +145,7 @@ def performTA():
             # **summarizedJson,
             # **sentimentJson,
             # **topicJson,
-            **wordcloudJson
+            # **wordcloudJson
         }
         
         response = jsonify(outJson)
