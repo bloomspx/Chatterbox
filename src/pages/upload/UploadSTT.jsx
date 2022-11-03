@@ -82,7 +82,7 @@ const UploadSTT = (props) => {
                     {isDragReject && <span>Some files will be rejected</span>}
                     {!isDragActive && <span>Drop file or click to select 📂</span>}
                     <div className="dropzone-footnote">
-                        <span>Only mp4 or mp3 file is accepted at a time</span>
+                        <p>Speech Analysis: mp4 or mp3 files only</p>
                     </div>
                 </div>
                 );
@@ -90,34 +90,39 @@ const UploadSTT = (props) => {
             </Dropzone>
           </div>
           <div className="upload-body">
+            <div className='upload-header'>
               <h1>Uploaded Files</h1>
               <span>{files.length} Files</span>
-              <div className="files-parent-container">
-                <div className="files-child-container">
-                  {files.map((file, index) => {
-                    return (
-                      <div className="uploaded-file-container" key={index}>
-                        <div className='file-information'>
-                          {handleFileType(file.name)}
-                          <div className="uploaded-file-details">
-                            <span>{file.name}</span>
-                            <span className='subtext'>{(file.size / 1000000).toFixed(2)} MB</span>
-                          </div>
+            </div>
+            <hr className='divider'/>
+            <div className="files-parent-container">
+              <div className="files-child-container">
+                {files.map((file, index) => {
+                  return (
+                    <div className="uploaded-file-container" key={index}>
+                      <div className='file-information'>
+                        {handleFileType(file.name)}
+                        <div className="uploaded-file-details">
+                          <span>{file.name}</span>
+                          <span className='subtext'>{(file.size / 1000000).toFixed(2)} MB</span>
                         </div>
-                        <div className="delete-uploaded-file">
-                          <TiDeleteOutline
-                            size={26}
-                            color="#f13232"
-                            onClick={() => deleteFile(index)}
-                          />
-                        </div>
-                      </div>);
-                  })}
-                </div>
+                      </div>
+                      <div className="delete-uploaded-file">
+                        <TiDeleteOutline
+                          size={26}
+                          color="#f13232"
+                          onClick={() => deleteFile(index)}
+                        />
+                      </div>
+                    </div>);
+                })}
               </div>
-              <button className="upload-button" type="button" onClick={redirectFiles}> 
+            </div>
+            <div className="upload-buttons-container">
+              <button className="button" type="button" onClick={redirectFiles}> 
                 Analyze Video
               </button>
+            </div>
           </div>
     </div>
   )
