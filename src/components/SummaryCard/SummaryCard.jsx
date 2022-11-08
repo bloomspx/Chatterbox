@@ -11,11 +11,11 @@ const SummaryCard = (props) => {
     const downloadText = (result) => {
         const link = document.createElement('a');
 
-        const { filename, summary, overall_sentiment, topics, ...data } = result;
-        const savedData = convertText({filename, summary, overall_sentiment, topics})
+        // const { filename, summary, overall_sentiment, topics, ...data } = result;
+        // const savedData = convertText({filename, summary, overall_sentiment, topics})
 
-        // const { filename, overall_sentiment, topics, ...data } = result;
-        // const savedData = convertText({filename, overall_sentiment, topics})
+        const { filename, overall_sentiment, topics, ...data } = result;
+        const savedData = convertText({filename, overall_sentiment, topics})
         
         const blob = new Blob([savedData], {type: "text/plain"});
         link.href = URL.createObjectURL(blob);
@@ -30,7 +30,7 @@ const SummaryCard = (props) => {
     const convertText = (obj) => {
         const result = []
         result.push("Filename: " + obj["filename"])
-        result.push("Summary: " + obj["summary"])
+        // result.push("Summary: " + obj["summary"])
         result.push("Sentiment: " + obj["overall_sentiment"])
         result.push("Topic Words: " + obj["topics"].map(function(item){ return item.value}))
         return result.join("\n")
@@ -74,14 +74,14 @@ const SummaryCard = (props) => {
                     />
                 </div>
                 <div className='subtable two'>
-                    <WordCard
+                    {/* <WordCard
                         type="summary"
                         wordText="Summary"
                         sentiment={data["overall_sentiment"]}
                         content={
                             <>{data['summary']}</>
                         }
-                    />
+                    /> */}
                 </div>
             </div>
             <div className='stats-table'>

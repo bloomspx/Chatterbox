@@ -50,7 +50,7 @@ const Dashboard = (props) => {
                 <h2>Text Analysis</h2>
             </div>
             <div className="sentences table">
-                <WordCard
+                {/* <WordCard
                     type="summary"
                     wordText="Summary"
                     wordSubtext="Extracts most important information from document"
@@ -58,7 +58,7 @@ const Dashboard = (props) => {
                     content={
                         <>{data['summary']}</>
                     }
-                />
+                /> */}
             </div>
             <div className="visual table">
                 <VisualCard

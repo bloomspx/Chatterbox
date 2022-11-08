@@ -6,7 +6,7 @@ export default async function callApi(type, values) {
 
     if (type === "text-analysis") {
 
-        const fileData = await fetch(`http://backend-service-myproject.192.168.42.244.nip.io/extract-text`,{
+        const fileData = await fetch(`http://backend-service-myproject.192.168.59.100.nip.io/extract-text`,{
             method:'POST',
             mode: 'cors',
             headers : {
@@ -18,7 +18,7 @@ export default async function callApi(type, values) {
             return response})
         .catch(error => new Error(error));
 
-        const topicData = await fetch(`http://backend-service-myproject.192.168.42.244.nip.io/topic-modelling`,{
+        const topicData = await fetch(`http://backend-service-myproject.192.168.59.100.nip.io/topic-modelling`,{
             method:'POST',
             mode: 'cors',
             headers : {
@@ -30,7 +30,7 @@ export default async function callApi(type, values) {
             return response})
         .catch(error => new Error(error));
 
-        const sentimentData = await fetch(`http://backend-service-myproject.192.168.42.244.nip.io/sentiment-analysis`,{
+        const sentimentData = await fetch(`http://backend-service-myproject.192.168.59.100.nip.io/sentiment-analysis`,{
             method:'POST',
             mode: 'cors',
             headers : {
@@ -42,7 +42,19 @@ export default async function callApi(type, values) {
             return response})
         .catch(error => new Error(error));
 
-        const summaryData = await fetch(`http://backend-service-myproject.192.168.42.244.nip.io/summary`,{
+        // const summaryData = await fetch(`http://backend-service-myproject.192.168.59.100.nip.io/summary`,{
+        //     method:'POST',
+        //     mode: 'cors',
+        //     headers : {
+        //         'Content-Type':'application/json'
+        //     },
+        //     body:JSON.stringify(fileData)})
+        // .then((res)=> res.json())
+        // .then(response => {
+        //     return response})
+        // .catch(error => new Error(error));
+
+        const wordCloudData = await fetch(`http://backend-service-myproject.192.168.59.100.nip.io/word-cloud`,{
             method:'POST',
             mode: 'cors',
             headers : {
@@ -54,24 +66,12 @@ export default async function callApi(type, values) {
             return response})
         .catch(error => new Error(error));
 
-        const wordCloudData = await fetch(`http://backend-service-myproject.192.168.42.244.nip.io/word-cloud`,{
-            method:'POST',
-            mode: 'cors',
-            headers : {
-                'Content-Type':'application/json'
-            },
-            body:JSON.stringify(fileData)})
-        .then((res)=> res.json())
-        .then(response => {
-            return response})
-        .catch(error => new Error(error));
-
-        data = {...fileData, ...topicData, ...sentimentData, ...summaryData, ...wordCloudData}
+        data = {...fileData, ...topicData, ...sentimentData, ...wordCloudData}
         console.log(data)
     }
 
     else if (type === "fetch-results") {
-        data = await fetch(`http://backend-service-myproject.192.168.42.244.nip.io/fetch-results`,{
+        data = await fetch(`http://backend-service-myproject.192.168.59.100.nip.io/fetch-results`,{
             method:'POST',
             mode: 'cors',
             headers : {
@@ -88,7 +88,7 @@ export default async function callApi(type, values) {
     }
 
     else if (type === "test-fetch") {
-        data = await fetch(`http://backend-service-myproject.192.168.42.244.nip.io/test-fetch`,{
+        data = await fetch(`http://backend-service-myproject.192.168.59.100.nip.io/test-fetch`,{
             method:'GET',
             mode: 'cors'})
         .then((res)=> res.json())
