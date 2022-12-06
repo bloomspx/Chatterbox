@@ -1,10 +1,11 @@
 <h1 align="center" style="border-bottom: none">
-    <b>Chatterbox Documentation</b>
+    <b>Chatterbox</b>
 </h1>
 
 <p align="center">
-    A text-to-speech & text analysis tool built using Flask, React, HuggingFace and Vosk
+    A text-to-speech & text analysis tool built using Flask, React, HuggingFace and Vosk.
 </p>
+
 
 <div align="center">
 
@@ -13,87 +14,87 @@
 [![Node](https://img.shields.io/badge/node->=16.0-success)](https://www.typescriptlang.org/)
 </div>
 
+![chatterbox-homepage](./References/images/chatterbox-homepage.png) 
+
 # Table of Contents
+- [Introduction](#introduction)
 - [Setup](#setup)
 - [Getting Started](#getting-started)
 - [Documentation](#documentation)
 
-# Setup
-ChatterBox runs locally as a web application <br/>
-Tested on Windows and Linux (Ubuntu 20.04 LTS)
+# Introduction
+Chatterbox is a web application that is intended for local / offline purposes. It supports a React-Flask framework, and supports two main features:
+- <b>Speech-To-Text Conversion</b> using Vosk Speech Recognition
+    - This can be done by uploading `.mp3` or `.mp4` files
+- <b>Text Analysis</b> using multiple NLP methods with HuggingFace Transformers models
+    - This can be done by uploading `.txt` or `.pdf` files 
 
+Chatterbox has been tested on Windows and Linux (Ubuntu 20.04 LTS)    
+Chatterbox has also been successfully deployed on a Kubernetes cluster using Minishift.
+
+# Setup
 ### For Windows Setup
-Download ffmpeg using : https://www.ffmpeg.org/download.html <br/><br/>
-Ensure following softwares are download 
-- Vscode
+Ensure the following softwares are downloaded
+- [FFmpeg](https://www.ffmpeg.org/download.html)
 - Github Desktop
 - Node.js
 - Python >3.8
+- Vscode
 
 <br/>
 
 ### For Linux Setup
-
-```
-// install github desktop https://gist.github.com/berkorbay/6feda478a00b0432d13f1fc0a50467f1
-
-sudo apt install git
-sudo apt install python
-sudo apt install ffmpeg
-sudo snap install node --classic
+```bash
+$ sudo apt install git
+$ sudo apt install python
+$ sudo apt install ffmpeg
+$ sudo snap install node --classic
 ```
 
-<br/>
+
 
 # Getting Started
-### 1. Download HuggingFace models locally, and save it in backend/models
+### 1. Download HuggingFace models (For Offline Use)
 
-Download the `pytorch_model.bin` for each model and move each file to `backend/models`
+Download the `pytorch_model.bin` for each model and move each file to its respective `backend/models` folder
 
-backend/models/roberta-SA <br/>
-https://huggingface.co/cardiffnlp/twitter-roberta-base-sentiment/tree/main
+- [twitter-roberta-base-sentiment](https://huggingface.co/cardiffnlp/twitter-roberta-base-sentiment/tree/main) (sentiment analysis)
+    - `backend/models/roberta-SA`
+- [bart-large-cnn](https://huggingface.co/facebook/bart-large-cnn/tree/main) (summary)
+    - `backend/models/bart-summary`
+- [all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/tree/main) (topic modelling)
+    - `backend/models/all-MiniLM-L6-v2`
 
-backend/models/bart-summary <br/>
-https://huggingface.co/facebook/bart-large-cnn/tree/main
-
-backend/models/all-MiniLM-L6-v2 <br/>
-https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/tree/main
-
-<br/>
-
-### 2. Create virtual environment, install Python dependencies for Flask backend & run
+### 2. Create a virtual environment & install Python dependencies for Flask backend
 
 ```c
 cd backend       
 python -m venv .venv
 
 // ensure (.venv) is showing in ur command prompt, else run this command in the parent directory
-// (For Windows)
-.venv\scripts\activate
-// (For Linux)
-source .venv/bin/activate
+.venv\scripts\activate          // For Windows
+$ source .venv/bin/activate     // For Linux
 
-pip install -r requirements.txt 
-
+pip install -r requirements.txt
+pip install pytorch 
 // some modules may need to be individually pip installed, check for missing modules & pip install respective modules
-// pytorch with gpu: https://pytorch.org/get-started/locally/
-
-// run flask
-python app.py 
-
-flask run
 ```
 
-<br/>
-
-### 3. Install Node modules for React frontend & run
+### 3. Install Node modules for React frontend
 ```
 cd frontend      
 npm install
+```
+
+### 4. Run both frontend and backend servers
+```c
+cd backend
+flask run
+
+cd frontend
 npm start
 ```
 
-<br/>
 
 # Documentation  
 Individual documentation can be found for the following components:
