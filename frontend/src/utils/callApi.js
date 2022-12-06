@@ -27,6 +27,20 @@ export default async function callApi(type, values) {
             return response})
         .catch(error => new Error(error));
     }
+
+    else if (type === "speech2text") { 
+        data = await fetch(`http://localhost:5000/speech-to-text`,{
+            method:'POST',
+            mode: 'cors',
+            headers : {'Content-Type':'application/json'},
+            body:JSON.stringify(values)})
+        .then((res)=> res.json())
+        .then(response => {
+            return response})
+        .catch(error => {
+            return null
+        });
+    }
     
     // else if (type === "save_results") {
     //     data = await fetch(`http://localhost:5000/save-results`,{

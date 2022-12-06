@@ -3,10 +3,10 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { Loader } from "../../components/Loader/Loader";
 import FormControl from '@mui/material/FormControl';
-import callSTT from "../../utils/callSTT";
 import styled from "@emotion/styled";
 import ListCard from "../../components/ListCard/ListCard";
 import { MdHome } from "react-icons/md";
+import callApi from "../../utils/callApi";
 
 export default function SpeechToText() {
   
@@ -39,33 +39,29 @@ export default function SpeechToText() {
         setLoading(true);
         var startTime = performance.now()
         let promises = location.state.map((obj) => {
-          return callSTT("speech2text", obj);
+          return callApi("speech2text", obj);
+          // return callSTT("speech2text", obj);
         });
 
-        Promise.all(promises).then(function(results){
-          setResults(results);
-          const sfileNames = checkfile(results);
-          setFilenames(sfileNames)
-          //console.log("results: ", results)
-          if (results.length == fileNames.length){
-            var endTime = performance.now()
-            setTimeTaken(((endTime - startTime)/1000).toFixed(2))
-            setLoading(false);
-          }
-
+        Promise.all(promises)
+          .then((results) => {
+            setResults(results);
+            const sfileNames = checkfile(results);
+            setFilenames(sfileNames)
+            if (results.length == fileNames.length){
+              var endTime = performance.now()
+              setTimeTaken(((endTime - startTime)/1000).toFixed(2))
+              setLoading(false);
+            } 
         })
       }
       catch(err) {
         setLoading(false);
       }
-
-      
-
     };
       fetchData();
   }, [location]);
 
-  // console.log(files[0])
   console.log("setResults: ", results)
   console.log("fileNames: ", fileNames)
 

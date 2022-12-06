@@ -13,6 +13,7 @@
 [![Node](https://img.shields.io/badge/node->=16.0-success)](https://www.typescriptlang.org/)
 </div>
 
+![chatterbox-nlp](./images/chatterbox-nlp.png)
 
 # Table of Contents
 - [Setup](#setup)
