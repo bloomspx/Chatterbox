@@ -1,6 +1,22 @@
 <h1 align="center" style="border-bottom: none">
-    <b>ChatterBox Documentation</b>
+    <b>Chatterbox Documentation</b>
 </h1>
+
+<p align="center">
+    A text-to-speech & text analysis tool built using Flask, React, HuggingFace and Vosk
+</p>
+
+<div align="center">
+
+[![Npm package version](https://badgen.net/npm/v/express)](https://npmjs.com/package/express)
+[![React](https://img.shields.io/badge/React-18.2-61dafb)](https://reactjs.org/)
+[![Node](https://img.shields.io/badge/node->=16.0-success)](https://www.typescriptlang.org/)
+</div>
+
+# Table of Contents
+- [Setup](#setup)
+- [Getting Started](#getting-started)
+- [Documentation](#documentation)
 
 # Setup
 ChatterBox runs locally as a web application <br/>
@@ -32,7 +48,7 @@ sudo snap install node --classic
 # Getting Started
 ### 1. Download HuggingFace models locally, and save it in backend/models
 
-Download the `pytorch_model.bin` for each model and move to backend/models
+Download the `pytorch_model.bin` for each model and move each file to `backend/models`
 
 backend/models/roberta-SA <br/>
 https://huggingface.co/cardiffnlp/twitter-roberta-base-sentiment/tree/main
@@ -47,7 +63,7 @@ https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/tree/main
 
 ### 2. Create virtual environment, install Python dependencies for Flask backend & run
 
-```
+```c
 cd backend       
 python -m venv .venv
 
@@ -79,5 +95,9 @@ npm start
 
 <br/>
 
-# (Optional - For Linux) Creating shellscript for ChatterBox Quickstart
-### Follow documentation in 'ubuntu bash launcher' folder
+# Documentation  
+Individual documentation can be found for the following components:
+-  Creating Shellscript for ChatterBox Quickstart (For Linux) located in `/ubuntu bash launcher` folder
+- Audio Processing (Vosk) located in `/References/Audio_Processing.md`
+- Natural Language Processing (NLP) located in `/References/NLP.md`
+- React Frontend located in `/References/React.md`

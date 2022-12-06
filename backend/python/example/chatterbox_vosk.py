@@ -11,11 +11,8 @@ def chatterbox_vosk(audio_file):
     SAMPLE_RATE = 16000
 
     # ---------------- Get Vosk Model -------------------
-    # model = Model('vosk-model-en-us-daanzu-20200905-lgraph')
-
     model = Model("vosk-model-en-us")
     rec = KaldiRecognizer(model, SAMPLE_RATE)
-
 
     outputresult = []
     with subprocess.Popen(["ffmpeg", "-loglevel", "quiet", "-i",

@@ -73,7 +73,6 @@ const Dashboard = (props) => {
                                 className="simple-cloud"
                                 colorOptions={{ luminosity: 'dark'}}
                                 style={{ width: '100%', textAlign: 'center' }}
-                                on
                             />
                         </>
                     }

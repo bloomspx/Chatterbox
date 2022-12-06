@@ -21,11 +21,18 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-    }
+  padding: 0px 30px;
+}
+
+.tts-time {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
 
 .download-button {
     width: fit-content;
-    margin-right: 80px;
     font-weight: 600;
     font-size: 15px;
     padding: 0.6rem 0.75rem;

@@ -65,15 +65,6 @@ def fetchResults():
     except Exception as err:
         return jsonify({'error': err}), 500
 
-@app.route('/test-fetch', methods=['GET', 'POST'])
-def testFetch():
-    try:
-        outJson = {'success': "Test-fetch is working"}
-        return jsonify(outJson), 200
-    except Exception as err:
-        return jsonify({'error': err}), 500
-
-
 # @app.route('/save-results', methods=['POST'])
 # def saveResults():    
 #     try:
@@ -83,8 +74,8 @@ def testFetch():
 #             json.dump(request_file, f, ensure_ascii=False, indent=4)    
 #         return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
 
-    # except Exception as err:
-    #     return jsonify({'error': err}), 500
+    except Exception as err:
+        return jsonify({'error': err}), 500
 
 ### ------ SPEECH TO TEXT METHODS ------ ###    
 

@@ -21,7 +21,7 @@ def extract_text(filename, data):
     index = data.index(',')
     data_url = data[index+1:]
     decoded_text = base64.b64decode(data_url)
-    print(decoded_text)
+    # print(decoded_text)
     try: 
         if extension == '.pdf':
             with open("output/text/text_{}".format(filename), "wb") as f:
@@ -105,7 +105,6 @@ def generate_sentiments(message):
     
     # calculate overall average sentiment       
     np_scores = np.asarray(scores_table)
-    # print((np_scores))
     avg_sentiments = np.round(np.average(np_scores, axis=0), 4)
     for index in range(len(avg_sentiments)):
         sentiment = labels[index]

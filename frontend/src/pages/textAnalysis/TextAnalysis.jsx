@@ -23,6 +23,7 @@ export default function TextAnalysis() {
   const [currentIndex, setCurrentIndex] = useState("#1")
   const [currentResult, setCurrentResult] = useState([])
   const [results, setResults] = useState([])
+  const [timeTaken, setTimeTaken] = useState([])
   const [changeFiles, setChangeFiles] = useState(false)
   const [showSummary, setShowSummary] = useState(false)
   
@@ -91,12 +92,11 @@ export default function TextAnalysis() {
             setFilenames(allResults.map(f => f.filename))
             setCurrentFileName(allResults[0].filename)
             var endTime = performance.now()
-            console.log(`Time Taken: ${(endTime - startTime)/1000}s`)
+            setTimeTaken(((endTime - startTime)/1000).toFixed(2))
             setLoading(false);
           })
       }
       catch(err) {
-        var endTime = performance.now()
         setLoading(false);
       }
     };
@@ -139,7 +139,7 @@ export default function TextAnalysis() {
           </div>
             <div className="header-container">
                 {!showSummary && <>
-                  <span className="header-text">Document:</span>
+                  <span className="header-text">Time: {timeTaken}s | Document:</span>
                   <StyledFormControl className="dropdown">
                       <Select className="menu"
                           value={currentFileName}
