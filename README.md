@@ -3,7 +3,7 @@
 </h1>
 
 <p align="center">
-    A text-to-speech & text analysis tool built using Flask, React, HuggingFace and Vosk.
+    A speech-to-text & text analysis tool built using Flask, React, HuggingFace and Vosk.
 </p>
 
 
